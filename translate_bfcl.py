@@ -19,10 +19,14 @@ Things that should NOT be changed:
 import json
 import os
 import argparse
+import time
 from pathlib import Path
 from typing import Dict, List, Any
 import openai
 from tqdm import tqdm
+
+MAX_RETRIES = 5
+RETRY_DELAY = 10  # seconds
 
 # Language configurations
 LANGUAGES = {
@@ -49,7 +53,7 @@ SYSTEM_PROMPT_COMPONENTS = {
 
 
 def translate_text(text: str, target_lang: str, client: openai.OpenAI) -> str:
-    """Translate text to target language using OpenAI API."""
+    """Translate text to target language using OpenAI API with retry logic."""
     if not text or not text.strip():
         return text
     
@@ -61,12 +65,22 @@ Only return the translated text, nothing else.
 Text to translate:
 {text}"""
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.3
-    )
-    return response.choices[0].message.content.strip()
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3
+            )
+            return response.choices[0].message.content.strip()
+        except (openai.RateLimitError, openai.APIError, openai.PermissionDeniedError) as e:
+            if attempt < MAX_RETRIES - 1:
+                wait_time = RETRY_DELAY * (2 ** attempt)  # Exponential backoff
+                print(f"\nAPI error: {e}. Retrying in {wait_time}s... (attempt {attempt + 1}/{MAX_RETRIES})")
+                time.sleep(wait_time)
+            else:
+                raise
+    return text  # Fallback
 
 
 def translate_function_doc(func_doc: Dict[str, Any], target_lang: str, client: openai.OpenAI) -> Dict[str, Any]:
@@ -106,33 +120,49 @@ def translate_question(question: List[List[Dict]], target_lang: str, client: ope
     return translated
 
 
-def translate_data_file(input_path: Path, output_path: Path, target_lang: str, client: openai.OpenAI):
-    """Translate a BFCL data file."""
+def translate_data_file(input_path: Path, output_path: Path, target_lang: str, client: openai.OpenAI, resume: bool = False):
+    """Translate a BFCL data file with checkpointing and resume support."""
     print(f"Translating {input_path.name} to {LANGUAGES[target_lang]}...")
     
+    # Load existing progress if resuming
     translated_entries = []
+    start_idx = 0
+    if resume and output_path.exists():
+        with open(output_path, 'r') as f:
+            for line in f:
+                translated_entries.append(json.loads(line.strip()))
+        start_idx = len(translated_entries)
+        print(f"Resuming from entry {start_idx}...")
     
     with open(input_path, 'r') as f:
         lines = f.readlines()
     
-    for line in tqdm(lines, desc=f"Translating to {target_lang}"):
-        entry = json.loads(line.strip())
-        
-        # Translate question
-        if "question" in entry:
-            entry["question"] = translate_question(entry["question"], target_lang, client)
-        
-        # Translate function docs
-        if "function" in entry:
-            entry["function"] = [translate_function_doc(f, target_lang, client) for f in entry["function"]]
-        
-        translated_entries.append(entry)
-    
-    # Write output
+    # Create output directory
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, 'w') as f:
-        for entry in translated_entries:
-            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+    
+    # Open file in append mode if resuming, else write mode
+    mode = 'a' if resume and output_path.exists() else 'w'
+    
+    with open(output_path, mode) as out_f:
+        # If not resuming, write existing entries first
+        if mode == 'w' and translated_entries:
+            for entry in translated_entries:
+                out_f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+        
+        for i, line in enumerate(tqdm(lines[start_idx:], desc=f"Translating to {target_lang}", initial=start_idx, total=len(lines))):
+            entry = json.loads(line.strip())
+            
+            # Translate question
+            if "question" in entry:
+                entry["question"] = translate_question(entry["question"], target_lang, client)
+            
+            # Translate function docs
+            if "function" in entry:
+                entry["function"] = [translate_function_doc(f, target_lang, client) for f in entry["function"]]
+            
+            # Write immediately to save progress
+            out_f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+            out_f.flush()  # Ensure it's written to disk
     
     print(f"Saved to {output_path}")
 
@@ -157,6 +187,8 @@ def main():
                         help="Only translate system prompts")
     parser.add_argument("--api-key", type=str, default=None,
                         help="OpenAI API key (or set OPENAI_API_KEY env var)")
+    parser.add_argument("--resume", action="store_true",
+                        help="Resume from previous progress if output file exists")
     
     args = parser.parse_args()
     
@@ -199,13 +231,13 @@ def main():
             input_path = BFCL_DATA_DIR / fname
             if input_path.exists():
                 output_path = lang_output_dir / fname
-                translate_data_file(input_path, output_path, args.lang, client)
+                translate_data_file(input_path, output_path, args.lang, client, args.resume)
     elif args.data_file:
         input_path = BFCL_DATA_DIR / args.data_file
         if not input_path.exists():
             raise FileNotFoundError(f"Data file not found: {input_path}")
         output_path = lang_output_dir / args.data_file
-        translate_data_file(input_path, output_path, args.lang, client)
+        translate_data_file(input_path, output_path, args.lang, client, args.resume)
     
     print("\n=== Translation complete ===")
 
