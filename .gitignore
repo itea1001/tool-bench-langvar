@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data (translated data can be large)
+translated_data/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Gorilla repo is a submodule or separate clone
+gorilla/
+
