@@ -26,3 +26,8 @@ translated_data/
 # Gorilla repo is a submodule or separate clone
 gorilla/
 
+# Benchmark results (regeneratable)
+benchmark_results/
+original_data_backup/
+
+

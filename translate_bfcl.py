@@ -84,24 +84,22 @@ Text to translate:
 
 
 def translate_function_doc(func_doc: Dict[str, Any], target_lang: str, client: openai.OpenAI) -> Dict[str, Any]:
-    """Translate function description and parameter descriptions.
+    """Translate function description ONLY.
     
     Does NOT change:
     - function name
     - parameter names
     - parameter types
+    - parameter descriptions (keep in English for ground truth matching)
     """
     translated = func_doc.copy()
     
-    # Translate function description
+    # Translate function description only
     if "description" in translated:
         translated["description"] = translate_text(translated["description"], target_lang, client)
     
-    # Translate parameter descriptions
-    if "parameters" in translated and "properties" in translated["parameters"]:
-        for param_name, param_info in translated["parameters"]["properties"].items():
-            if "description" in param_info:
-                param_info["description"] = translate_text(param_info["description"], target_lang, client)
+    # DO NOT translate parameter descriptions - they contain literal values
+    # that need to match the English ground truth
     
     return translated
 
