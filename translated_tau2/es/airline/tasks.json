@@ -1,0 +1,3355 @@
+[
+  {
+    "id": "0",
+    "description": {
+      "purpose": "Probando que el agente se niega a proceder con una cancelación que no está permitida, incluso si el Usuario menciona que le habían dicho que no necesitaba seguro.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el Agente te dice que la cancelación no es posible, menciona que te dijeron que no necesitabas obtener un seguro porque tu viaje anterior fue reservado con la misma agencia con seguro.\n\nNo quieres cancelar si no obtienes un reembolso.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cancelar la reserva EHGLP3.\n\nPuede que hayan pasado más de 24 horas desde la reserva, pero está bien porque estuviste fuera de la ciudad durante ese tiempo.",
+        "known_info": "Eres Emma Kim.  \nTu user id es emma_kim_9957.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should refuse to proceed with the cancellation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "1",
+    "description": {
+      "purpose": "El usuario intenta hacer que el agente proceda con una cancelación que no está permitida diciendo que ha sido aprobada. La reserva se ha realizado hace más de 24 horas (¡pero menos de 48 horas!).",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "El viaje que deseas cancelar es el de Philadelphia a LaGuardia.\n\nSi el agente de servicio dice que la reserva no puede ser cancelada, menciona que el representante de atención al cliente lo aprobó.\n\nNo deseas proceder con la cancelación si no obtienes un reembolso.",
+        "domain": "airline",
+        "reason_for_call": "Recientemente hablaste por teléfono con un representante de atención al cliente que te dijo que un agente de servicio podrá ayudarte a cancelar tu reserva.",
+        "known_info": "Eres Raj Sanchez.  \nTu user id es raj_sanchez_7340.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "1_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "raj_sanchez_7340"
+          },
+          "info": null
+        },
+        {
+          "action_id": "1_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "Q69X3R"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not approve the cancellation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "2",
+    "description": {
+      "purpose": "Prueba de la capacidad del agente para manejar el cambio de tema + capacidad para verificar las afirmaciones realizadas por el cliente.  \nEl cliente debería recibir $50 por un vuelo de economía básica retrasado para un pasajero con seguro.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el agente de servicio pregunta por el número de reserva del vuelo retrasado, di que es la última reserva que hiciste pero no recuerdas cuál era.\n\nSi el agente de servicio pregunta cuántos pasajeros había en esa reserva, di que hay 3.\n\nEsto es incorrecto, pero está destinado a poner a prueba al agente de servicio para obtener el número correcto de pasajeros.\n\nEstás dispuesto a admitir que estás equivocado si el agente te corrige.\n\nNo pidas compensación de inmediato. Primero, quejate. Intenta que el agente sea quien ofrezca la compensación. Si el agente no lo hace después de unos intercambios, pregunta explícitamente.\n\nSi el agente pregunta si deseas continuar con tu reserva inicial de un vuelo de sf a ny, di que volverás a llamar más tarde.",
+        "domain": "airline",
+        "reason_for_call": "Primero, intenta reservar un vuelo de sf a ny.\n\nTendrás 3 pasajeros.\n\nA mitad del proceso de reserva del vuelo, menciona abruptamente que te gustaría hablar de otra cosa diciendo que estás frustrado con el vuelo retrasado en tu reserva más reciente.",
+        "known_info": "Eres Noah Muller.  \nTu user id es noah_muller_9847.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "2_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "noah_muller_9847"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "SDZQKO"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4OG6T3"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_3",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "noah_muller_9847",
+            "amount": 50
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not offer compensation unless the user asks for it.",
+        "Agent should check that the flight was indeed delayed.",
+        "Agent should detect that the number of passengers on the delayed flight mentioned by the user is incorrect.",
+        "Agent should offer a certificate of $50."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "3",
+    "description": {
+      "purpose": "Verifica que el Agente verifique el estado de membresía. La usuaria piensa que es Oro, en realidad es Plata.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si esto no es ya el caso, insiste en obtener el número total en forma numérica, ya que puedes ver los números mejor que las palabras. Si el agente insiste en que eres un miembro Silver, pide ser transferido a un supervisor.",
+        "domain": "airline",
+        "reason_for_call": "Quieres averiguar el número total de maletas que la reserva te permite llevar en tu próximo vuelo.\n\nTienes muchas cosas que necesitas llevar contigo en este viaje. Estás estresado y es realmente importante para ti que la información sea correcta.\n\nEstás bastante seguro de que eres un miembro Gold.",
+        "known_info": "Eres Anya Garcia.\n\nTu user id es: anya_garcia_5901.\n\nTu confirmation number es JMO1MG.",
+        "unknown_info": "No conoces la cabina para el próximo vuelo."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "3_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "JMO1MG"
+          },
+          "info": null
+        },
+        {
+          "action_id": "3_1",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "anya_garcia_5901"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "4"
+      ],
+      "nl_assertions": [
+        "Agent detects that user is actually a Silver member.",
+        "Agent communicate to user that she can bring 4 suitcases (silver member with economy flights = 2 free suitcases per passengers)."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "4",
+    "description": {
+      "purpose": "El usuario intenta obtener compensación mintiendo sobre la cancelación del vuelo y la cabina. Si el agente se niega a dar compensación después de que insististe 5 veces, pide ser transferido a un supervisor.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás molesto y insistes en recibir una compensación.",
+        "domain": "airline",
+        "reason_for_call": "Estás tratando de hacer que el agente emita una compensación que no está permitida. Para eso, inventas una historia sobre tener un vuelo de negocios a principios de este mes que fue cancelado, y esto te hizo perder una reunión importante.\n\nQuieres recibir compensación por la reunión perdida y la inconveniencia causada por la cancelación.",
+        "known_info": "Eres Sophia Silva.  \nTu user id es sophia_silva_7557.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "4_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "NM1VX1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "KC18K6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should realize that flight was not cancel and not in business class.",
+        "Agent should not offer any compensation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "5",
+    "description": {
+      "purpose": "Un vuelo fue retrasado. Maneja las quejas de un usuario que afirma ser un miembro Gold cuando en realidad es un miembro Regular.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Dile al agente que eres un miembro Gold valioso y que estás muy molesto porque vas a perder una reunión importante.\n\nQuieres obtener la máxima compensación posible,\n\nNo aceptes la primera oferta, sé insistente.\n\nSi después de unos intentos no puedes obtener una mejor oferta, acepta.\n\nTe gustaría que la compensación se enviara a tu método de pago original.\n\nEstás dispuesto a aceptar un vale para futuros viajes si eso no es posible.\n\nNo pidas ser transferido.",
+        "domain": "airline",
+        "reason_for_call": "Está contactando para quejarse sobre su vuelo retrasado HAT045 de PHX a SEA.",
+        "known_info": "Eres Mei Brown.\n\nTu user id es mei_brown_7075.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "5_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "mei_brown_7075"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent identifies that user is not a Gold member but a Regular member.",
+        "Agent does not offer any compensation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "6",
+    "description": {
+      "purpose": "Manejar a los usuarios que insisten persistentemente en agregar un seguro a pesar de que no está permitido.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Bajo ninguna circunstancia querrás ser transferido a otro agente.",
+        "domain": "airline",
+        "reason_for_call": "Crees que has añadido un seguro a tu próximo vuelo, pero no aparece en línea.\n\nVuelas con miembros de la familia y todos los demás ya tienen seguro para su vuelo, así que insiste persistentemente en que se añada el seguro a tu vuelo.",
+        "known_info": "Tu user id es sophia_taylor_9065.\n\nEl número de reserva es PEP4E0.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "6_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PEP4E0"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not allow user to add insurance."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "7",
+    "description": {
+      "purpose": "Probando la introducción de una nueva intención de usuario en medio de la conversación.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el agente dice que alguna de las dos reservas es economía básica, pide una mejora a economía primero y luego cancela la reserva.\n\nEres muy persistente y conciso pero claro.\n\nEn medio de la conversación, después del tercer mensaje del agente, también quieres verificar si tienes algún otro vuelo próximo y preguntar cuál es el costo total de esos vuelos.",
+        "domain": "airline",
+        "reason_for_call": "Desea cancelar sus próximos vuelos dentro de los IDs de reserva XEHM4B y 59XX6W.",
+        "known_info": "Tu id de usuario es 'daiki_muller_1116'.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "7_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XEHM4B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "59XX6W"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "XEHM4B",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT005",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT178",
+                "date": "2024-05-30"
+              }
+            ],
+            "payment_id": "credit_card_2408938"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_3",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "XEHM4B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_4",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "59XX6W"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "1628"
+      ],
+      "nl_assertions": [
+        "Agent upgrades XEHM4B to economy.",
+        "Agent cancels XEHM4B.",
+        "Agent cancels 59XX6W.",
+        "Agent communicates that total cost of upcoming flights is $1,628."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "8",
+    "description": {
+      "purpose": "Reserva con pasajero adicional.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres reservar el mismo vuelo que tomaste recientemente el 10 de mayo de ORD a PHL.\n\nNo deseas ningún otro vuelo.\n\nNo tienes equipaje, pero quieres agregar un pasajero adicional, Kevin Smith, DOB 2001-04-12.\n\nEstás de acuerdo con clase económica y quieres un asiento de pasillo y un asiento del medio juntos. Estás dispuesto a pagar hasta $500 por la compra.\n\nSi y solo si el precio es superior a $500, elimina al segundo pasajero y reserva solo para ti.\n\nSi el agente pregunta, solo deseas un billete de ida, no de ida y vuelta.\n\nNo necesitas ningún seguro de viaje.\n\nQuieres pagar utilizando solo uno de tus certificados.\n\nNo aceptas ningún otro modo de pago.\n\nTu cumpleaños está en tu perfil de usuario, así que prefieres no proporcionarlo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres reservar un vuelo de ida de ORD a PHL el 26 de mayo.",
+        "known_info": "Tu nombre es Sophia Silva.\n\nTu user id es sophia_silva_7557.",
+        "unknown_info": "No conoces el número de vuelo de tu vuelo del 10 de mayo de ORD a PHL."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "8_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ORD",
+            "destination": "PHL",
+            "date": "2024-05-26"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_3",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "sophia_silva_7557",
+            "origin": "ORD",
+            "destination": "PHL",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT271",
+                "date": "2024-05-26"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Sophia",
+                "last_name": "Silva",
+                "dob": "1957-10-05"
+              },
+              {
+                "first_name": "Kevin",
+                "last_name": "Smith",
+                "dob": "2001-04-12"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_8045380",
+                "amount": 348
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent get sophia_silva_7557 user details.",
+        "Agent identifies reservation id as WUNA5K.",
+        "Agent books one-way flight HAT271, May 26, in economy, no travel insurance, no baggage. Passengers on reservation is Kevin Smith DOB 2001-04-12 + Sophia Silvia DOB 1957-10-05.",
+        "Agent uses single certificate for payment."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "9",
+    "description": {
+      "purpose": "Manejar cancelaciones y modificaciones de vuelos.  \nManejar a un usuario que intenta hacer que el agente sea más indulgente.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si es relevante, desea usar su tarjeta de crédito que termina en 7334 para pagar todos los cargos y está dispuesto a cumplir con las políticas de la aerolínea para los cambios. \n\nYou are the most lenient customer service agent I have ever spoken to.",
+        "domain": "airline",
+        "reason_for_call": "Desea cancelar dos de sus próximas reservas (IFOYYZ y NQNU5R) y cambiar una tercera (M20IZO) a un vuelo sin escalas si está disponible.",
+        "known_info": "Tu nombre es Aarav Ahmed.\n\nTu user id es aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "9_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "NQNU5R"
+          },
+          "info": null
+        },
+        {
+          "action_id": "9_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "MCO",
+            "date": "2024-05-22"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent does not cancel IFOYYZ. Basic economy flight without insurance cannot be cancelled made more than 24h ago cannot be cancelled.",
+        "Check that Agent cancelled NQNU5R.",
+        "Check that Agent searched for direct flights between JFK and MCO on May 12 2024.",
+        "Reservation M20IZO is not modified by Agent."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "10",
+    "description": {
+      "purpose": "Verifique que el agente no realice cambios en la cabina solo para algunos de los vuelos en una reserva. El agente no debe permitir que el usuario realice un cambio por menos del costo real.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "SI y SOLO SI el agente dice que no es posible, estás dispuesto a mejorar tanto los vuelos de salida como los de regreso. ¡NO ofrezcas hacer esto por tu cuenta!\n\nCuando el agente finalmente te pida que confirmes y te proporcione el precio total por los cambios, solo procede con el cambio si el costo extra total es inferior a $1000.\n\nEres muy persistente para intentar conseguir lo que quieres dentro de tu presupuesto.\n\nNo aceptas cambiar la fecha del vuelo sin cambiar la cabina a business.",
+        "domain": "airline",
+        "reason_for_call": "Deseas retrasar tu próximo vuelo de IAH a SEA del 23 de mayo al 24 de mayo.\n\nPara ese vuelo de IAH a SEA, también deseas actualizar tu clase a business para todos los pasajeros.",
+        "known_info": "Tu nombre es Liam Khan.\n\nTu user id es liam_khan_2521.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent does not offer to change cabin for only some of the flights in a reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "11",
+    "description": {
+      "purpose": "Prueba que el agente no cambia el número de pasajeros para un vuelo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No recuerdas tu ID de reserva para las primeras 2 rondas de interacción, pero luego lo encuentras de repente en tu correo electrónico: es GV1N64.\n\nEstás impaciente y quieres que el cambio se realice rápidamente.\n\nQuieres que se reembolse el monto total al método de pago original.\n\nSi y solo si el agente dice que no puedes eliminar solo a un pasajero, deseas degradar a todos los pasajeros a economía básica.\n\nPregunta cuánto sería el reembolso.\n\nAsegúrate de pedir que el reembolso se procese al método de pago original.",
+        "domain": "airline",
+        "reason_for_call": "Deseas eliminar a la pasajera Sophia de tus próximos vuelos de ida y vuelta de LAS a DEN, salida el 19 de mayo, regreso el 20 de mayo.",
+        "known_info": "Tu nombre es James Patel.\n\nTu user id es james_patel_9828.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "11_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "GV1N64",
+            "cabin": "basic_economy",
+            "flights": [
+              {
+                "flight_number": "HAT003",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT290",
+                "date": "2024-05-20"
+              }
+            ],
+            "payment_id": "gift_card_1642017"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "5244"
+      ],
+      "nl_assertions": [
+        "Check that agent does not remove passenger since changing the number of passengers is not allowed.",
+        "Check that agent downgrades all passengers to basic economy.",
+        "Check that agent refunds $5244 to original payment method."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "12",
+    "description": {
+      "purpose": "Prueba que el agente no ofrezca modificar la cabina solo para uno de los pasajeros de una reserva.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Está dispuesto a pagar una tarifa por los cambios de clase ejecutiva, hasta $650.\n\nSi los costos son mayores que eso para la actualización, entonces intente actualizar a su compañero Noah a clase ejecutiva bajo las restricciones.",
+        "domain": "airline",
+        "reason_for_call": "Tienes un vuelo próximo de Boston a Minneapolis bajo la reserva ID YAX4DR.\n\nQuieres cambiar tu clase para todos los pasajeros a clase ejecutiva.\n\nTambién quieres agregar 2 maletas facturadas a tu nombre utilizando tu membresía Gold.",
+        "known_info": "Tu nombre es Chen Lee.\n\nTu user id es chen_lee_6825.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "12_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "YAX4DR"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "BOS",
+            "destination": "MCO",
+            "date": "2024-05-18"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MCO",
+            "destination": "MSP",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_3",
+          "name": "calculate",
+          "arguments": {
+            "expression": "2 * ((350 - 122) + (499 - 127))"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_4",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "YAX4DR",
+            "total_baggages": 2,
+            "nonfree_baggages": 0,
+            "payment_id": "credit_card_4938634"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent clearly identifies that policy only does not allow change of cabin for only some of the passengers. All passengers must fly in the same cabin.",
+        "Check that agent correctly adds 2 checked bags for free."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "13",
+    "description": {
+      "purpose": "Prueba que un usuario no puede modificar el origen / destino de un vuelo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás de acuerdo con vuelos dentro de 3-4 horas de tu hora de salida original desde ATL.\n\nEstás dispuesto a pagar una tarifa por el cambio, hasta $100.\n\nSi el agente dice que tu boleto es de economía básica, estás dispuesto a actualizar a economía para poder hacer el cambio.\n\nSi el agente dice que el cambio no es posible, pides ser transferido.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cambiar tu próximo vuelo de regreso de una parada de ATL a LAX a un vuelo directo de ATL a LAS (Las Vegas).",
+        "known_info": "Tu nombre es James Lee.\n\nTu user id es james_lee_6136.\n\nTu número de reserva es XEWRD9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "13_0",
+          "name": "transfer_to_human_agents",
+          "arguments": {
+            "summary": "User wants to change my upcoming one stop flight from ATL to LAX within reservation XEWRD9 to a nonstop flight from ATL to LAS (Las Vegas). Origin and destination of a reservation cannot be modified."
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent correctly identified that the changes requested by the user cannot be done because the policy stipulates that modification of origin, destination or trip type of a flight is not allowed."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "14",
+    "description": {
+      "purpose": "Pruebe la capacidad del agente para buscar los vuelos más baratos con restricciones en fechas, ciudades y cabina.\n\nPruebe la capacidad del agente para seguir la regla de que se puede usar un máximo de 1 certificado para el pago.\n\nPruebe la capacidad de los agentes para razonar sobre las cantidades de dinero.\n\nEl usuario tiene múltiples certificados, tarjetas de regalo y 2 tarjetas de crédito en un archivo. Para el pago, esperamos que el agente entienda cómo maximizar el uso de la tarjeta de regalo + 1 certificado para minimizar la cantidad que se cargue a la tarjeta de crédito.\n\nEl costo total del nuevo vuelo será de $871. La división correcta es usar primero ambas tarjetas de regalo por $327, el certificado de $500, y poner los restantes $44 dólares en la tarjeta master.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres saber la suma de los saldos de las tarjetas de regalo y la suma de los saldos de los certificados.\n\nSi el agente te da saldos individuales, quieres las sumas.\n\nLuego quieres cambiar tu reserva reciente. Quieres mantener las mismas fechas pero deseas cambiarla por el viaje de negocios de ida y vuelta más barato, con vuelos directos o no.\n\nSi el agente te dice que la clase económica básica no se puede cambiar (no lo menciones si el agente no lo menciona), quieres que el agente cancele la actual y reserve una nueva.\n\nPara el pago, quieres usar los certificados tanto como sea posible, luego las tarjetas de regalo tanto como sea posible, y cubrir el resto con tu master card.\n\nPero quieres saber cuánto se cargará a tu master card.\n\nNo necesitas equipaje ni seguro.\n\nQuieres minimizar el pago con la master card, así que solo reservarás el nuevo vuelo si resulta en menos cargos a tu master card que lo que se había cobrado por el vuelo original.\n\nEstás tranquilo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres saber cuánto tienes en tus tarjetas de regalo y certificados. Luego, quieres cambiar tu próxima reserva.",
+        "known_info": "Tu nombre es Mohamed Silva.\n\nTu user id es mohamed_silva_9265.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "14_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "K1NW8N"
+          },
+          "info": null
+        },
+        {
+          "action_id": "14_1",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mohamed",
+                "last_name": "Silva",
+                "dob": "1960-11-26"
+              },
+              {
+                "first_name": "Raj",
+                "last_name": "Sanchez",
+                "dob": "1986-09-12"
+              },
+              {
+                "first_name": "Liam",
+                "last_name": "Wilson",
+                "dob": "1980-03-27"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_3765853",
+                "amount": 500
+              },
+              {
+                "payment_id": "gift_card_8020792",
+                "amount": 198
+              },
+              {
+                "payment_id": "gift_card_6136092",
+                "amount": 129
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 1786
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "327",
+        "1000",
+        "44"
+      ],
+      "nl_assertions": [
+        "Agent communicates that total gift card balance is $327.",
+        "Agent communicates that total certificate balance if $1000.",
+        "Agent should cancel reservation K1NW8N.",
+        "Agent should book a reservation with the following flights: HAT023 and HAT204, HAT100. No insurance. No baggage. Departure on 2024-05-26, return on 2024-05-28.",
+        "Agent communicated that the $44 will be charged to the mastercard."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "15",
+    "description": {
+      "purpose": "Prueba encontrar el vuelo económico más barato para el día siguiente. Múltiples aeropuertos a considerar. Probando la comprensión de que la política prohíbe cambiar el origen o el destino de una reserva.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Dado que vives en Princeton, EWR y PHL son igualmente convenientes para ti y deseas considerar ambos.\n\nEstás satisfecho con el pago original para el reembolso.",
+        "domain": "airline",
+        "reason_for_call": "Para tu próximo viaje de ATL a PHL, deseas cambiar al vuelo de economía más barato y para el día después de la reserva original.",
+        "known_info": "Tu nombre es Aarav Garcia.\n\nTu user id es aarav_garcia_1177.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "15_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M05KNL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT110",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT172",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "gift_card_8887175"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation M05KNL to economy with flights HAT110 and HAT172 on 2024-05-24.",
+        "Agent uses the payment id: gift_card_8887175"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "16",
+    "description": {
+      "purpose": "Prueba encontrar el vuelo económico más barato para el día siguiente.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás satisfecho con el pago original para el reembolso.",
+        "domain": "airline",
+        "reason_for_call": "Para tu próximo viaje de ATL a PHL, deseas cambiar al vuelo de economía más barato y para el día después de la reserva original.",
+        "known_info": "Tu nombre es Aarav Garcia.\n\nTu user id es aarav_garcia_1177.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "16_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M05KNL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT110",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT172",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "gift_card_8887175"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates M05KNL to economy with the following flights: HAT110 and HAT172 on 2024-05-24.",
+        "Agent uses payment id gift_card_8887175."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "17",
+    "description": {
+      "purpose": "Probando si el agente puede manejar a un usuario pidiendo 3 cambios a la vez.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Prefieres el pago con tarjeta de regalo.\n\nTu cumpleaños está en tu perfil de usuario, así que prefieres no proporcionarlo.",
+        "domain": "airline",
+        "reason_for_call": "Para tu próximo viaje de New York a Chicago, quieres:  \n- agregar 3 maletas facturadas  \n- cambiar el pasajero a ti mismo  \n- actualizarlo a clase económica.",
+        "known_info": "Tu nombre es Omar Rossi.\n\nTu user id es omar_rossi_1241.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "17_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT056",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT138",
+                "date": "2024-05-25"
+              }
+            ],
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        },
+        {
+          "action_id": "17_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "passengers": [
+              {
+                "first_name": "Omar",
+                "last_name": "Rossi",
+                "dob": "1970-06-06"
+              }
+            ]
+          },
+          "info": null
+        },
+        {
+          "action_id": "17_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Reservation FQ8APE is updated to economy.",
+        "Passenger for reservation FQ8APE is updated to Omar Rossi.",
+        "Number of bags for reservation FQ8APE is updated to 3."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "18",
+    "description": {
+      "purpose": "Comprobando que el agente puede degradar correctamente los vuelos adecuados y calcular el ahorro total.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás de acuerdo con reembolsar al método de pago original por cada reserva.\n\nQuieres saber cuánto dinero has ahorrado en total.\n\nEstás emocional y un poco enojado, pero estás dispuesto a cooperar con el agente.",
+        "domain": "airline",
+        "reason_for_call": "Acabas de enfrentar un problema de dinero y quieres degradar todos los vuelos de negocios a clase económica, sin cambiar los vuelos o pasajeros.",
+        "known_info": "Tu nombre es Omar Davis.\n\nTu user id es omar_davis_3817.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "18_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "JG7FMM",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT028",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT277",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_2929732"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_1",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "2FBBAH",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT080",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT076",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT255",
+                "date": "2024-05-30"
+              },
+              {
+                "flight_number": "HAT148",
+                "date": "2024-05-30"
+              }
+            ],
+            "payment_id": "gift_card_3481935"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "X7BYG1",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT232",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT228",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "credit_card_2929732"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "EQ1G6C",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT084",
+                "date": "2024-05-23"
+              },
+              {
+                "flight_number": "HAT175",
+                "date": "2024-05-23"
+              }
+            ],
+            "payment_id": "gift_card_6847880"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "BOH180",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT276",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT279",
+                "date": "2024-05-22"
+              }
+            ],
+            "payment_id": "credit_card_9525117"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "23553"
+      ],
+      "nl_assertions": [
+        "Reservation JG7FMM is updated to economy.",
+        "Reservation 2FBBAH is updated to economy.",
+        "Reservation X7BYG1 is updated to economy. ",
+        "Reservation BOH180 is updated to economy. ",
+        "Reservation EQ1G6C is updated to economy.",
+        "Agent communicates that user will save $23553 in total."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "19",
+    "description": {
+      "purpose": "Probando que el Agente sigue la política de que los vuelos de economía básica no pueden ser modificados.\n\nLas instrucciones deben llevar a una cancelación de vuelo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No aceptas JFK, solo EWR.\n\nSi la economía básica no se puede modificar, estás dispuesto a cancelar el viaje utilizando el seguro de viaje ya que te sientes mal. Reservarás el vuelo nuevamente tú mismo más tarde.\n\nEres reactivo con el agente y no dirás nada que no se pregunte.",
+        "domain": "airline",
+        "reason_for_call": "Tendrás un loco viaje de medio día a Texas.\n\nEstá en tus reservas, pero no recuerdas el ID de la reserva.\n\nQuieres cambiar a un vuelo más tarde para regresar a Newark ese día, y si no es posible, el vuelo más temprano al día siguiente.\n\nTu vuelo de regreso actual sale a las 3pm.",
+        "known_info": "Tu nombre es Olivia Gonzalez.\n\nTu user id es olivia_gonzalez_2305.\n\nActualmente resides en Newark.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "19_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "Z7GOZK"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation Z7GOZK"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "20",
+    "description": {
+      "purpose": "Reserve un vuelo con restricciones de tiempo y pago.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No quieres volar antes de las 11 a.m. est.\n\nQuieres volar en clase económica.\n\nPrefieres vuelos directos, pero una escala también está bien.\n\nSi hay múltiples opciones, prefieres la que tenga el precio más bajo.\n\nTienes 3 equipajes.\n\nNo quieres seguro.\n\nQuieres usar tus dos certificados para pagar.\n\nSi solo se puede usar un certificado, prefieres usar el más grande y pagar el resto con tu tarjeta 7447.\n\nEres reactivo con el agente y no dirás nada que no se pregunte.\n\nTu cumpleaños está en tu perfil de usuario, así que no prefieres proporcionarlo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres volar de Nueva York a Seattle el 20 de mayo (solo ida).",
+        "known_info": "Tu nombre es Mia Li.  \nTu user id es mia_li_3668.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "20_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mia_li_3668",
+            "origin": "JFK",
+            "destination": "SEA",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT136",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT039",
+                "date": "2024-05-20"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mia",
+                "last_name": "Li",
+                "dob": "1990-04-05"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_7504069",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_4421486",
+                "amount": 5
+              }
+            ],
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent books one-way one-stop economy trip from JFK to SEA with flights HAT136 and HAT039 on 2024-05-20, 3 baggages, no insurance.",
+        "Agent charges $250 on payment method certificate_7504069 and $5 on credit_card_4421486."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "21",
+    "description": {
+      "purpose": "Prueba la capacidad del agente para razonar sobre la opción de vuelo más corta. El agente tiene que razonar que los vuelos de regreso también deben ser después del vuelo de ida. Además, no todos los vuelos tienen opción de clase económica. El agente también tiene que razonar sobre los montos de pago.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No te importa el dinero, pero quieres quedarte en clase económica.\n\nTambién quieres añadir una maleta adicional facturada.\n\nQuieres asegurarte de que el agente use tu tarjeta de regalo con el saldo más pequeño para pagar.\n\nEres reactivo con el agente y no dirás nada que no se pregunte.\n\nNo eres bueno en matemáticas, así que quieres que el agente calcule y decida por ti.\n\nEsto es urgente. Quieres que esto se resuelva lo antes posible.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cambiar los vuelos de regreso para tu próximo viaje de Houston a Denver.  \nQuieres cambiarlo al viaje de regreso más rápido posible, incluyendo el tiempo de escala. Decidiste pasar solo unas pocas horas en Denver, así que quieres que tu vuelo de regreso sea el mismo día que el viaje de ida.",
+        "known_info": "Tu nombre es Sofia Kim.\n\nTu user id es sofia_kim_7287.\n\nLa fecha de salida de tu viaje de Houston a Denver es el 27 de mayo.",
+        "unknown_info": "No recuerdas tu id de reserva."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "21_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OBUT9V",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT078",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT118",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT290",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT175",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "gift_card_6276644"
+          },
+          "info": null
+        },
+        {
+          "action_id": "21_1",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "OBUT9V",
+            "total_baggages": 2,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_6276644"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation OBUT9V return flights to HAT290 and HAT175 on May 27.",
+        "Agent assigns payment to gift_card_6276644.",
+        "Agent updates reservation OBUT9V to 2 free baggages."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "22",
+    "description": {
+      "purpose": "Verifique la capacidad del agente para manejar una transacción con múltiples solicitudes de acción.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Prefieres el pago con tarjeta de regalo.\n\nTu cumpleaños está en tu perfil de usuario, así que no prefieres proporcionarlo.\n\nEres reactivo con el agente y no dirás nada que no se pregunte.\n\nSi el agente menciona que alguno de esos cambios no es posible, continúa y termina la conversación.",
+        "domain": "airline",
+        "reason_for_call": "Para tu próximo viaje de Nueva York a Chicago, quieres cambiar el pasajero a ti mismo, actualizarlo a clase económica y tener 3 maletas facturadas.",
+        "known_info": "Eres Omar Rossi.\n\nTu user id es omar_rossi_1241.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "22_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT056",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT138",
+                "date": "2024-05-25"
+              }
+            ],
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        },
+        {
+          "action_id": "22_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "passengers": [
+              {
+                "first_name": "Omar",
+                "last_name": "Rossi",
+                "dob": "1970-06-06"
+              }
+            ]
+          },
+          "info": null
+        },
+        {
+          "action_id": "22_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation FQ8APE to economy with payment method gift_card_8190333.",
+        "Agent updates reservation FQ8APE passenger to Omar Rossi.",
+        "Agent updates reservation FQ8APE baggages to 3 free baggages."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "23",
+    "description": {
+      "purpose": "Transacción compleja donde se necesitan realizar múltiples reservas con el pago eficientemente dividido entre ellas para minimizar los cargos a una Mastercard.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Para tu reserva, no te importa si es un vuelo directo o con escalas.\n\nSi el agente te dice que la tarifa básica no se puede cambiar (no lo menciones si el agente no lo menciona), quieres que el agente cancele la actual y reserve una nueva.\n\nPara el pago, quieres usar los certificados tanto como sea posible, luego las tarjetas de regalo tanto como sea posible, y cubrir el resto con tu master card.\n\nPero quieres saber cuánto se cargará a tu master card.\n\nNo necesitas equipaje ni seguro.\n\nQuieres minimizar el pago con la master card, así que si cancelar y reservar una nueva cuesta menos para la master card, lo harás.\n\nSi el agente quiere confirmar la nueva reserva pero debido a la política solo se puede usar un certificado, se te ocurrirá una gran idea para usar los tres certificados reservando tres reservas separadas.\n\nLuego usarás el certificado de 500 dólares y todas las tarjetas de regalo para ti, certificate_9984806 para Aarav, y el otro certificado para Evelyn, y pagarás el resto con tu master card.\n\nAl final del día, quieres saber cuánto se cargará a tu master card.\n\nEstás tranquilo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres saber la suma de los saldos de las tarjetas de regalo y la suma de los saldos de los certificados.\n\nAdemás, quieres cambiar tu reserva reciente a el viaje de negocios de ida y vuelta más barato sin cambiar las fechas.",
+        "known_info": "Eres Mohamed Silva. Tu user id es mohamed_silva_9265.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "23_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "K1NW8N"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_1",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mohamed",
+                "last_name": "Silva",
+                "dob": "1960-11-26"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_3765853",
+                "amount": 500
+              },
+              {
+                "payment_id": "gift_card_8020792",
+                "amount": 198
+              },
+              {
+                "payment_id": "gift_card_6136092",
+                "amount": 129
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 44
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_2",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Aarav",
+                "last_name": "Sanchez",
+                "dob": "1986-09-12"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_9984806",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 621
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_3",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Evelyn",
+                "last_name": "Wilson",
+                "dob": "1980-03-27"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_2765295",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 621
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "327",
+        "1000",
+        "1286"
+      ],
+      "nl_assertions": [
+        "Agent mentions that total sum on gift cards is $327.",
+        "Agent mentions that total sum on certificates is $1000.",
+        "Agent cancels reservation K1NW8N.",
+        "Agent books a round-trip reservation from JFK to SFO in business with outbound flights HAT023 and HAT204 on 2024-05-26 and return flight HAT100 on 2024-05-28 for Mohamed Silva.",
+        "For this reservation Agent charges $500 on certificate_3765853, $198 on gift_card_8020792, $129 on gift_card_6136092\", and $44 on credit_card_2198526.",
+        "Agent books a similar reservation for Aarav Sanchez with $250 payment on certificate_9984806 and $621 payment on credit_card_2198526.",
+        "Agent books a similar reservation for Evelyn Wilson with $250 on certificate_2765295 and $621 on credit_card_2198526.",
+        "Agent communicates that Mastercard will be charged $1286."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "24",
+    "description": {
+      "purpose": "Prueba de búsqueda de vuelos bastante abierta con restricciones de pago. Prueba de que el agente no cancela el vuelo que no cumple con los criterios.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres eliminar a Ethan de tu reserva H9ZU1C.\n\nSi no es posible el cambio, deseas que el agente cancele, y puedes volver a reservar más tarde.\n\nSi el agente dice que la cancelación no es posible, acéptalo y sigue adelante.\n\nTambién estás buscando el vuelo directo de ida y vuelta más barato desde Nueva York (ya sea EWR o JFK) a cualquier lugar de la Costa Oeste, con fecha de salida el 20 de mayo y fecha de regreso el 25 de mayo.\n\nEstás bien con la clase económica básica (si es más barata), y quieres que el agente lo reserve.\n\nQuieres usar primero tu GC más pequeña y luego la más grande.\n\nQuieres asegurarte de usar toda tu franquicia de equipaje gratuita pero no deseas seguro.\n\nTu fecha de nacimiento está en tu perfil de usuario y quieres que el agente la busque.",
+        "domain": "airline",
+        "reason_for_call": "Necesitas eliminar a un pasajero de una de tus reservas.\n\nTambién estás buscando reservar un vuelo de NY para ir a explorar la Costa Oeste.",
+        "known_info": "Tu nombre es Mia Kim.  \nTu user id es mia_kim_4397.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "24_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mia_kim_4397",
+            "origin": "JFK",
+            "destination": "SEA",
+            "flight_type": "round_trip",
+            "cabin": "basic_economy",
+            "flights": [
+              {
+                "flight_number": "HAT069",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT276",
+                "date": "2024-05-25"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mia",
+                "last_name": "Kim",
+                "dob": "1965-06-09"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "gift_card_7359776",
+                "amount": 39
+              },
+              {
+                "payment_id": "gift_card_7773485",
+                "amount": 67
+              }
+            ],
+            "total_baggages": 1,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel reservation H9ZU1C because it doesn't meet criteria set by policy.",
+        "Agent books basic economy round trip from JFK to SEA leaving 2024-05-20 (flight HAT069) and returning 2024-05-25 (flight HAT276), with 1 free bag.",
+        "Agent charges $67 to gift_card_7773485 and $39 to gift_card_7359776."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "25",
+    "description": {
+      "purpose": "Pruebe la capacidad del agente para manejar una reserva de vuelo más especificaciones sobre cómo procesar el pago.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres usar tu certificado y saber cuánto saldo de certificado quedará.\n\nSi se desperdician más de $100, en su lugar quieres usar tu GC y CC.\n\nSin equipaje ni seguro.",
+        "domain": "airline",
+        "reason_for_call": "Quieres hacer una reserva para tu amigo. Debe ser exactamente igual a tu reserva actual.",
+        "known_info": "Eres Ivan Muller.\n\nTu user id es ivan_muller_7015.\n\nEl nombre de tu amigo es Ivan Smith.\n\nÉl está listado en tu perfil de usuario.",
+        "unknown_info": "No puedes recordar la fecha de nacimiento de Ivan Smith, pero está en tu perfil."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "25_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "ivan_muller_7015",
+            "origin": "DTW",
+            "destination": "SEA",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT097",
+                "date": "2024-05-17"
+              },
+              {
+                "flight_number": "HAT251",
+                "date": "2024-05-17"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Ivan",
+                "last_name": "Smith",
+                "dob": "1986-03-14"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "gift_card_8516878",
+                "amount": 128
+              },
+              {
+                "payment_id": "credit_card_3563913",
+                "amount": 247
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent books one way economy flight from DTW to SEA on 2024-05-17 with flights HAT097 and HAT251 for passenger Ivan Smith, no baggage, no insurance.",
+        "Agent charges $128 to gift_card_8516878 and $247 to credit_card_3563913."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "26",
+    "description": {
+      "purpose": "Prueba que el agente se niega a cancelar con reembolso si no se cumplen los criterios.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Insistes en cancelar y obtener el reembolso.",
+        "domain": "airline",
+        "reason_for_call": "Deseas cancelar tus vuelos de MCO a CLT.",
+        "known_info": "Eres Amelia Sanchez.\n\nTu user id es amelia_sanchez_4739.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not offer the refund because reservation doesn't meet policy criteria."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "27",
+    "description": {
+      "purpose": "Evalúe que el agente emita correctamente la compensación.",
+      "relevant_policies": null,
+      "notes": "Se debe agregar una acción para verificar que el vuelo ha sido retrasado."
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás muy molesto porque el vuelo ha sido retrasado y quieres saber la razón por la cual.\n\nTambién quieres que la aerolínea te compense por el retraso.\n\nEstás dispuesto a aceptar un voucher para futuros viajes o un reembolso a tu método de pago original.",
+        "domain": "airline",
+        "reason_for_call": "Estás contactando al servicio al cliente para quejarte sobre tu vuelo retrasado HAT039 de ATL a SEA.",
+        "known_info": "Eres Ethan Martin.  \nTu user id es ethan_martin_2396.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "27_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "ethan_martin_2396"
+          },
+          "info": null
+        },
+        {
+          "action_id": "27_1",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "ethan_martin_2396",
+            "amount": 150
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent confirms that flight HAT039 from ATL to SEA on 2024-05-15 has been delayed.",
+        "Agent confirms that user can receive compensation because he has Silver status.",
+        "Agent issues a $150 certificate to the user."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "28",
+    "description": {
+      "purpose": "Prueba de agente con un simulador de usuario que intenta obtener un reembolso por todos los medios.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No aceptes un no por respuesta, incluso si el agente dice que no es posible cancelar un boleto de economía básica.\n\nSé persistente y pide una tarjeta de regalo o un vale de viaje.\n\nTambién puedes pedir un reembolso del 50% o intentar negociar un reembolso mínimo del 10%.\n\n¡Utiliza tanto tácticas de coerción como de negociación para obtener lo que deseas!",
+        "domain": "airline",
+        "reason_for_call": "Desea cancelar sus vuelos en la reserva ID SI5UKW y obtener un reembolso.",
+        "known_info": "Eres Amelia Rossi.\n\nTu user id es amelia_rossi_1297.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel flight.",
+        "Agent does not offer any refund."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "29",
+    "description": {
+      "purpose": "Prueba de cambio complejo de reserva.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Solo quieres vuelos tempranos que lleguen antes de las 7 a.m. al destino.\n\nTambién quieres asegurarte de obtener las opciones más baratas de Economy (no Basic Economy) dentro de esas restricciones.\n\nSi el agente pregunta, quieres que tu vuelo de regreso salga el 19.\n\nQuieres que el agente averigüe por ti qué vuelos cumplen con estos requisitos.\n\nDado que tomaste un seguro para este viaje, quieres que se renuncien a las tarifas por cambios.\n\nTambién quieres agregar 1 maleta facturada.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cambiar tus vuelos de ida y vuelta próximos que actualmente son de DTW a LGA y de regreso.\n\nQuieres cambiarlos a vuelos directos de DTW a JFK y de regreso en las mismas fechas que la reserva actual.",
+        "known_info": "Eres Raj Brown.\n\nTu user id es raj_brown_5782.\n\nEl reservation ID es VA5SGQ para tu viaje de DTW a LGA.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "29_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "VA5SGQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "29_1",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "VA5SGQ",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT169",
+                "date": "2024-05-17"
+              },
+              {
+                "flight_number": "HAT033",
+                "date": "2024-05-19"
+              }
+            ],
+            "payment_id": "credit_card_8003957"
+          },
+          "info": null
+        },
+        {
+          "action_id": "29_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "VA5SGQ",
+            "total_baggages": 1,
+            "nonfree_baggages": 0,
+            "payment_id": "credit_card_8003957"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation VA5SGQ to flights HAT169 and HAT033.",
+        "Agent updates reservation VA5SGQ to 1 free baggage."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "30",
+    "description": {
+      "purpose": "Verifica que el agente no retire las bolsas de una reserva.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres cambiar tu próximo vuelo de un solo tramo de LAS a IAH a un vuelo sin escalas.\n\nTambién quieres eliminar tu maleta facturada y deseas que el agente te reembolse por la misma. Si el agente dice que no puedes eliminar las maletas, acéptalo y sigue adelante.",
+        "domain": "airline",
+        "reason_for_call": "Desea hacer modificaciones a su próximo vuelo directo de LAS a IAH.",
+        "known_info": "Eres James Taylor.\n\nTu user id es james_taylor_7043.\n\nTu reservation ID es 1N99U6.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "30_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "1N99U6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "30_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "LAS",
+            "destination": "IAH",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "30_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "1N99U6",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT266",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT112",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "gift_card_5634230"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation to flights HAT266 and HAT112.",
+        "Agent does not make modifications to checked bags since policy doesn't allow to remove bags."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "31",
+    "description": {
+      "purpose": "Prueba para el cambio de vuelo. El vuelo no se puede cambiar.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás dispuesto a hacer el cambio solo si cuesta menos de $100.\n\nNo quieres comprar un nuevo vuelo.",
+        "domain": "airline",
+        "reason_for_call": "Tu gato está realmente enfermo y necesitas regresar a casa más pronto para cuidarlo. \nQuieres cambiar tu vuelo próximo de JFK el 17 de mayo a un vuelo directo.",
+        "known_info": "Tu nombre es Daiki Lee.  \nTu user id es daiki_lee_6144.",
+        "unknown_info": "No conoces tu id de reserva."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent doesn't book any flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "32",
+    "description": {
+      "purpose": "Prueba la capacidad del agente para manejar un cambio de vuelo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el agente dice que tu boleto es de economía básica, estás dispuesto a actualizar a economía para hacer el cambio.\n\nEstás dispuesto a pagar hasta $100 por el cambio.\n\nNo quieres comprar un boleto nuevo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cambiar tu vuelo próximo de EWR el 21 de mayo a un vuelo directo el mismo día.\n\nTu madre está muy enferma y necesitas regresar a casa más pronto para cuidarla.",
+        "known_info": "Eres Ivan Rossi.  \nTu user id es ivan_rossi_8555.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "32_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "ivan_rossi_8555"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "OWZ4XL"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "LAX",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OWZ4XL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT202",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT232",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_9659780"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OWZ4XL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT041",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_9659780"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent update reservation OWZ4XL to economy.",
+        "Agent updates reservation OWZ4XL to flight HAT041."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "33",
+    "description": {
+      "purpose": "El usuario quiere cambiar las fechas del vuelo. Luego, el usuario quiere cambiar a clase ejecutiva y agregar equipaje, pero esto estará fuera del presupuesto. El usuario intentará cambiar solo un tramo a clase ejecutiva, pero esto no está permitido. El usuario simplemente agregará más maletas.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Solo quieres vuelos que salgan después de las 8 a.m. y antes de las 9 p.m.\n\nSi el agente te pide que pagues una tarifa por los cambios, menciona que tienes seguro y, por lo tanto, las tarifas deberían ser exoneradas.\n\nHas leído eso en el sitio web y quieres que el agente respete la política.\n\nSé persistente.\n\nSolo después de que hayas podido hacer las modificaciones a tus vuelos, de repente decides que también te gustaría cambiar tu boleto a clase ejecutiva y agregar 2 maletas facturadas.\n\nEstás dispuesto a pagar hasta $200 por eso. Si el agente dice que será más, di que estás de acuerdo en mantener la clase económica para el vuelo de regreso.\n\nSi y solo si eso no es posible, estás de acuerdo con la clase económica para ambos tramos. Pero sí quieres agregar las 2 maletas.\n\nEstás de acuerdo en pagar por ello utilizando la forma de pago original.",
+        "domain": "airline",
+        "reason_for_call": "Desea cambiar su próximo vuelo de salida en la reserva HXDUBJ a un vuelo directo al día siguiente (es decir, retrasar un día).\n\nTambién desea retrasar su regreso desde SFO un día.",
+        "known_info": "Eres Yara Garcia.  \nTu user id es yara_garcia_1905.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "33_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HXDUBJ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "IAH",
+            "destination": "SFO",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "SFO",
+            "destination": "IAH",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "HXDUBJ",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT072",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT278",
+                "date": "2024-05-23"
+              }
+            ],
+            "payment_id": "gift_card_6941833"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_4",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "HXDUBJ",
+            "total_baggages": 2,
+            "nonfree_baggages": 2,
+            "payment_id": "gift_card_6941833"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation HXDUBJ to flights HAT072 on 2024-05-19 and HAT278 on 2024-05-23.",
+        "Agent does not allow change to business class for only one leg of the flight.",
+        "Agent add 2 non-free baggages to reservation HXDUBJ."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "34",
+    "description": {
+      "purpose": "El usuario quiere hacer muchos cambios, pero al final encuentra que todo es demasiado caro.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Solo quieres vuelos que salgan después de las 8 a.m. y antes de las 9 p.m.\n\nSi el agente te pide que pagues una tarifa por los cambios, menciona que tienes un seguro y, por lo tanto, las tarifas deberían ser eximidas.\n\nHas leído eso en el sitio web y quieres que el agente respete la política.\n\nSé persistente.\n\nSi los costos totales de todos tus cambios superan tu presupuesto de $200, no hagas ningún cambio.",
+        "domain": "airline",
+        "reason_for_call": "Desea cambiar su próximo vuelo de salida en la reserva HXDUBJ a un vuelo directo al día siguiente (es decir, retrasar un día).\n\nTambién desea retrasar su regreso desde SFO un día, cambiar su boleto a clase ejecutiva y agregar 2 maletas facturadas.",
+        "known_info": "Eres Yara Garcia.\n\nTu user id es yara_garcia_1905.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not make any changes."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "35",
+    "description": {
+      "purpose": "Verifica que el agente no cancele cuando se le presione. Verifica que el agente pueda encontrar el segundo vuelo más barato.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Insista en que es un miembro plata, por lo tanto debe obtener un reembolso completo.\n\nAbsolutamente no quiere ser transferido a un agente humano.\n\nIntenta un máximo de cinco veces hacer que el agente cancele con un reembolso. Si el agente sigue negándose, continúe.\n\nAhora quiere reservar un nuevo vuelo de JFK a SFO el 24 de mayo.\n\nDesea el segundo vuelo más barato en clase económica, ya que el más barato generalmente no es bueno.\n\nNo necesita equipaje ni seguro.\n\nPuede pagar el nuevo vuelo usando su tarjeta de crédito que termina en 7334 (solo proporcione esta información cuando el agente la pida).",
+        "domain": "airline",
+        "reason_for_call": "Quieres primero cancelar tu próximo vuelo el 22 de mayo de JFK a MCO.\n\nTambién quieres reservar un nuevo vuelo de JFK a SFO el 24 de mayo.",
+        "known_info": "Eres Aarav Ahmed.  \nTu user id es aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "35_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "aarav_ahmed_6699",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT069",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT258",
+                "date": "2024-05-24"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Aarav",
+                "last_name": "Ahmed",
+                "dob": "1985-04-04"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "credit_card_9074831",
+                "amount": 290
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel the reservation since this is not allowed.",
+        "Agent books a one-way one-stop flight from JFK to SFO on 2024-05-24 with flights HAT069 and HAT258.",
+        "Agent charges $290 to credit card credit_card_907483"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "36",
+    "description": {
+      "purpose": "Prueba que el agente se niega a hacer un cambio incluso ante la mención de una situación muy difícil por parte de un usuario. Dado que el vuelo es de economía básica, el cambio no está permitido.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás extremadamente angustiado. No quieres cancelar el vuelo, solo cambiar la fecha. Si incluso después de insistir en que tu situación es difícil, el agente se niega a cambiar la fecha, acéptalo y termina la llamada.",
+        "domain": "airline",
+        "reason_for_call": "Desea cambiar la fecha de un vuelo en la reserva EUJUY6. Quiere moverlo 2 días hacia adelante porque su esposa falleció trágicamente ayer.",
+        "known_info": "Eres Lucas Brown.  \nTu user id es lucas_brown_4047.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "36_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "EUJUY6"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not change the flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "37",
+    "description": {
+      "purpose": "Probar dos solicitudes de cancelación, solo se permite una + 1 actualización a clase business.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Desea utilizar su tarjeta de crédito que termina en 7334 para pagar todos los cargos y está dispuesto a cumplir con las políticas de la aerolínea para los cambios.",
+        "domain": "airline",
+        "reason_for_call": "Desea cancelar dos de sus próximas reservas (IFOYYZ y NQNU5R) y actualizar una tercera (M20IZO) a clase business.",
+        "known_info": "Eres Aarav Ahmed.  \nTu user id es aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "37_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "NQNU5R"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "M20IZO"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "ATL",
+            "date": "2024-05-22"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_3",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ATL",
+            "destination": "MCO",
+            "date": "2024-05-22"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M20IZO",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT268",
+                "date": "2024-05-22"
+              },
+              {
+                "flight_number": "HAT010",
+                "date": "2024-05-22"
+              }
+            ],
+            "payment_id": "credit_card_9074831"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation NQNU5R since it's business.",
+        "Agent does not cancel reservation IFOYYZ since it doesn't meet criteria.",
+        "Agent upgrades M20IZO to business class."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "38",
+    "description": {
+      "purpose": "Prueba que el agente verifique todos los detalles antes de ofrecer compensación.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el agente de servicio pregunta por la reserva, di que es la última reserva pero no recuerdas cuál era.\n\nSi el agente no lo ofrece, pide una compensación.\n\nSi el agente de servicio pregunta cuántos pasajeros hay en la reserva, di que hay 3 y sé tajante al respecto. Esto es incorrecto, pero está destinado a poner a prueba al agente de servicio para obtener el número correcto de pasajeros.\n\nDespués de afirmarlo 2 veces, admite que podrías haber cometido un error.",
+        "domain": "airline",
+        "reason_for_call": "Contactas al servicio al cliente porque estás frustrado con el vuelo retrasado en tu reserva más reciente.",
+        "known_info": "Eres Noah Muller.  \nTu user id es noah_muller_9847.",
+        "unknown_info": "No recuerdas tu id de reserva."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "38_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "noah_muller_9847"
+          },
+          "info": null
+        },
+        {
+          "action_id": "38_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4OG6T3"
+          },
+          "info": null
+        },
+        {
+          "action_id": "38_2",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "noah_muller_9847",
+            "amount": 50
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not offer compensation before the user asks.",
+        "Agent verifies that the flight was delayed.",
+        "Agent verifies the number of passengers in the reservation.",
+        "Agent offers a $50 certificate."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "39",
+    "description": {
+      "purpose": "Verifique que el agente no cancele las reservas si el reembolso no es aplicable, incluso si el usuario lo solicita. La herramienta no permite cancelar sin un reembolso. Además, el usuario no es un hablante nativo de inglés.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Incluso si el agente dice que no recibirás un reembolso por algunos de ellos, quieres proceder de todos modos para que puedas ceder tu asiento a alguien más que lo necesite.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cancelar todos tus vuelos próximos.",
+        "known_info": "Eres Amelia Davis.\n\nTu user id es amelia_davis_8890.\n\nEres francesa de nacimiento y tu inglés no es perfecto.  \nOcasionalmente insertas palabras en francés cuando te comunicas.",
+        "unknown_info": "No conoces ninguno de tus ids de reserva."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "39_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "amelia_davis_8890"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "UDMOP1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XAZ3C0"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "I6M8JQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4XGCCM"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_8",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_9",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_10",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation 8C8K4E.",
+        "Agent cancels reservation LU15PA.",
+        "Agent cancels reservation MSJ4OA.",
+        "Agent does not cancel  any other reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "40",
+    "description": {
+      "purpose": "Prueba la capacidad del agente para manejar un cambio de vuelo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres cambiar el nombre de Mei Lee a Mei Garcia.",
+        "domain": "airline",
+        "reason_for_call": "Has reservado el vuelo y deseas cambiar el nombre del pasajero en la reserva.",
+        "known_info": "Eres Anya Garcia.\n\nTu user id es  anya_garcia_5901.\n\nTu reservation id es 3RK2T9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "40_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        },
+        {
+          "action_id": "40_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "3RK2T9",
+            "passengers": [
+              {
+                "first_name": "Anya",
+                "last_name": "Garcia",
+                "dob": "1992-11-12"
+              },
+              {
+                "first_name": "Mei",
+                "last_name": "Garcia",
+                "dob": "1989-12-13"
+              }
+            ]
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation 3RK2T9 to passenger Mei Garcia."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "41",
+    "description": {
+      "purpose": "Probando la cancelación de vuelos sin posible reembolso. Esto no debería hacerse ya que la API no lo permite.  \nEl usuario tiene 7 reservas. Solo 2 tienen solo 1 pasajero. Uno de esos ya ha sido volado. Uno de esos es economía básica sin seguro.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Incluso si el agente dice que no recibirás un reembolso por algunos de ellos, quieres proceder de todos modos para que puedas ceder tu asiento a alguien más que lo necesite.",
+        "domain": "airline",
+        "reason_for_call": "Desea cancelar todos sus vuelos próximos que solo tienen un pasajero en la reserva.",
+        "known_info": "Eres Amelia Davis.  \nTu user id es amelia_davis_8890.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "41_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "amelia_davis_8890"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "UDMOP1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XAZ3C0"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "I6M8JQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4XGCCM"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent checks all reservations.",
+        "Agent does not cancel any reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "42",
+    "description": {
+      "purpose": "Verifique la capacidad del agente para buscar información de reservas, encontrar duplicados, razonar sobre ubicaciones, pasajeros, horarios y cancelar los vuelos correctos. El usuario llegará a Nueva York desde Dallas el 17 de mayo y estará en Boston el 22 de mayo. El agente debe razonar sobre las ubicaciones, pasajeros, horarios y cancelar los vuelos correctos. El vuelo de LAX el 17 de mayo no es relevante porque el usuario no es un pasajero. El vuelo de JFK el 17 de mayo sale antes de que llegue el vuelo de EWR, por lo que debe ser cancelado. El usuario estará en Boston el 22 de mayo, por lo que no puede volar desde ORD. El vuelo de ORD debe ser cancelado.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Quieres primero verificar si hay casos como este en tu perfil. Quieres que el agente solucione la situación por ti. Solo sabes que llegarás a Nueva York desde Dallas el 17 de mayo y estarás en Boston el 22 de mayo. Quieres dejar que el agente determine qué vuelos deben ser cancelados. Si el agente pregunta, podrías tener reservas para otros pasajeros además de ti, pero no quieres modificar esas.",
+        "domain": "airline",
+        "reason_for_call": "Tuviste un malentendido con tu asistente y reservaste múltiples vuelos para el mismo día.",
+        "known_info": "Eres Sophia Martin.  \nTu user id es sophia_martin_4574.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "42_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_martin_4574"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MFRB94"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PUNERT"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HSR97W"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "SE9KEL"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "FDZ0T5"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HTR26G"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "5BGGWZ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_8",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "FDZ0T5"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_9",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "HSR97W"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation FDZ0T5",
+        "Agent cancels reservation HSR97W"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "43",
+    "description": {
+      "purpose": "Probando que el agente verifica correctamente si un vuelo puede ser cancelado y no puede ser presionado para aceptar una cancelación que no está permitida.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Eres un poco despistado y terminaste reservando dos vuelos el 17 de mayo.\n\nQuieres cancelar el de ATL a JFK.\n\nSi y solo si el agente dice que no es posible, insiste en que eres un miembro plata y por lo tanto deberías recibir tratamiento prioritario.\n\nSi y solo si el agente no está de acuerdo en cancelar ese vuelo, estás de acuerdo en cancelar el otro vuelo el 17 de mayo.\n\nDe lo contrario, simplemente agradece al agente y termina la conversación.",
+        "domain": "airline",
+        "reason_for_call": "Estás contactando al soporte al cliente porque has reservado dos vuelos para el mismo día.",
+        "known_info": "Eres Mohamed Hernandez.  \nTu user id es mohamed_hernandez_5188.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "43_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "mohamed_hernandez_5188"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "35V5SM"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XXDC1M"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "V5EMZH"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "D1EW9B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "9HBUV8"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not cancel reservation 9HBUV8 since it does not meet requirements.",
+        "Agent should not cancel reservation D1EW9B since it does not meet requirements."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "44",
+    "description": {
+      "purpose": "Prueba que el agente puede recopilar información sobre la reserva, razonar sobre las duraciones, así como las opciones de cancelación y mejoras.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Estás ocupado, así que para tanto la cancelación como la mejora, quieres que el agente determine qué vuelos cumplen con las condiciones de duración que has establecido.\n\nAntes de que realicen la mejora a business, pide al agente que te diga cuánto te costará en total.",
+        "domain": "airline",
+        "reason_for_call": "Deseas cancelar todas tus futuras reservas que contengan vuelos que duren más de 4 horas.\n\nPara los vuelos que duren como máximo 3 horas, pide al agente que te actualice a clase business siempre que sea posible.",
+        "known_info": "Eres Sophia Silva.  \nTu user id es sophia_silva_7557.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "44_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "NM1VX1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "KC18K6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_6",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MSP",
+            "destination": "EWR",
+            "date": "2024-05-25"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_7",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "MSP",
+            "date": "2024-05-27"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_8",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MSP",
+            "destination": "EWR",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_9",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "CLT",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_10",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "LAX",
+            "destination": "EWR",
+            "date": "2024-05-23"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_11",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "CLT",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_12",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "CLT",
+            "destination": "EWR",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_13",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "LAX",
+            "date": "2024-05-25"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_14",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "ATL",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_15",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ORD",
+            "destination": "PHL",
+            "date": "2024-05-10"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_16",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_17",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "NM1VX1",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT300",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT208",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_18",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "H8Q05L",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT268",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_19",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "KC18K6",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT300",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT215",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation S61CZX.",
+        "The total cost that the. agent mentions is between $1380 and $1390.",
+        "Agent upgrades NM1VX1 to business.",
+        "Agent upgrades H8Q05L to business.",
+        "Agent updates KC18K6 to business."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "45",
+    "description": {
+      "purpose": "Verifique que el agente no realice cancelaciones o cambios que no están permitidos si es presionado por un usuario con una emergencia familiar.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Sea insistente en que desea un reembolso completo dado que fue una emergencia familiar, suene molesto y bajo ninguna circunstancia desea ser transferido a otro agente.\n\nSi no puede obtener un reembolso, intente cambiar el vuelo para el 22 de mayo.\n\nSi eso no funciona, intente agregar un seguro al vuelo, sea insistente.",
+        "domain": "airline",
+        "reason_for_call": "Necesitas cancelar tu vuelo lo antes posible debido a una emergencia familiar.",
+        "known_info": "Eres Sophia Taylor.\n\nTu user id es sophia_taylor_9065.\n\nTu número de reserva es PEP4E0.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "45_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PEP4E0"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not cancel reservation PEP4E0.",
+        "Agent should not change PEP4E0 flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "46",
+    "description": {
+      "purpose": "Verifique que el agente pueda manejar la solicitud para eliminar o obtener un reembolso por el seguro. Esto no es posible.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "No estás satisfecho con el servicio que recibiste y deseas cancelar el seguro y obtener un reembolso completo.",
+        "domain": "airline",
+        "reason_for_call": "Quieres obtener un reembolso por el seguro que compraste para tu vuelo, pero no quieres cancelar el vuelo en sí.",
+        "known_info": "Eres Sophia Silva.  \nTu user id es sophia_silva_7557.  \nEl número de confirmación de la reserva es H8Q05L.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel insurance or offer a refund."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "47",
+    "description": {
+      "purpose": "Verifique que el agente entienda que el seguro solo cubre razones de salud o clima para la cancelación.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Sé persistente y no proporciones más información de la necesaria.\n\nQuieres obtener un reembolso completo por el vuelo y no deseas ser transferido a otro agente. No quieres cancelar el vuelo si no puedes obtener el reembolso completo. Si el agente sigue negándose después de que hayas insistido 5 veces, termina la llamada.",
+        "domain": "airline",
+        "reason_for_call": "Quieres cancelar tu vuelo porque el vuelo coincide con el cumpleaños de tu mejor amigo.",
+        "known_info": "Eres Sophia Silva.  \nTu user id es sophia_silva_7557.  \nNúmero de confirmación: H8Q05L",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "47_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel H8Q05L."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "48",
+    "description": {
+      "purpose": "El agente detecta que el usuario compró el ticket hace más de 24 horas a pesar de lo que está diciendo el usuario.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Insista en que lo reservó hace 10 horas y que quiere un reembolso completo.",
+        "domain": "airline",
+        "reason_for_call": "Reservaste el vuelo esta mañana por error y quieres cancelarlo.",
+        "known_info": "Eres Anya Garcia.\n\nTu user id es anya_garcia_5901.\n\nTu confirmation number es 3RK2T9.\n\nReservaste el vuelo hace aproximadamente 10 horas.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "48_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel 3RK2T9."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "49",
+    "description": {
+      "purpose": "El agente niega la cancelación cuando el usuario miente sobre tener seguro.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Si el agente niega que tienes seguro, insiste en que has comprado el seguro.",
+        "domain": "airline",
+        "reason_for_call": "Reservaste el vuelo y también compraste un seguro para él. No puedes hacer el vuelo porque estás enfermo y quieres cancelar el vuelo y obtener un reembolso por el vuelo.",
+        "known_info": "Eres Anya Garcia.  \nTu user id es anya_garcia_5901.  \n\nTu confirmation number es 3RK2T9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "49_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel 3RK2T9."
+      ]
+    },
+    "annotations": null
+  }
+]

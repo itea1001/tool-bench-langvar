@@ -1,0 +1,3355 @@
+[
+  {
+    "id": "0",
+    "description": {
+      "purpose": "Kujaribu kwamba wakala anakataa kuendelea na kufutwa kwa agizo ambalo haliruhusiwi hata kama Mtumiaji anasema kwamba alielezwa kwamba hakuwa na haja ya bima.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa Wakala anakwambia kwamba kufuta siyo possible, \ntaja kwamba ulielezwa kwamba hauhitaji kupata bima kwa sababu safari yako ya awali ilihifadhiwa na wakala yule yule kwa bima.\n\nHutaki kufuta ikiwa huwezi kupata marejesho.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta reservation EHGLP3.\n\nInaweza kuwa zaidi ya masaa 24 baada ya kuweka akiba, lakini ni sawa kwa sababu ulikuwa nje ya mji kwa wakati huo.",
+        "known_info": "Wewe ni Emma Kim.  \nId yako ya mtumiaji ni emma_kim_9957.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should refuse to proceed with the cancellation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "1",
+    "description": {
+      "purpose": "Mtumiaji anajaribu kumfanya wakala aendelee na kufuta ambayo hairuhusiwi kwa kusema imeidhinishwa. Uhifadhi umefanywa zaidi ya masaa 24 yaliyopita (lakini chini ya masaa 48 yaliyopita!).",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Safari unayotaka kufuta ni ile kutoka Philadelphia hadi LaGuardia.\n\nIkiwa wakala wa huduma anasema kwamba reservation haiwezi kufutwa, taja kwamba mwakilishi wa huduma kwa wateja ameidhinisha hiyo.\n\nHutaki kuendelea na kufutwa ikiwa hujapata marejesho.",
+        "domain": "airline",
+        "reason_for_call": "Hivi karibuni ulizungumza kwa simu na mwakilishi wa huduma kwa wateja ambaye alikuambia kwamba wakala wa huduma ataweza kukusaidia kufuta uhifadhi wako.",
+        "known_info": "Wewe ni Raj Sanchez.  \nUser id yako ni raj_sanchez_7340.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "1_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "raj_sanchez_7340"
+          },
+          "info": null
+        },
+        {
+          "action_id": "1_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "Q69X3R"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not approve the cancellation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "2",
+    "description": {
+      "purpose": "Kujaribu uwezo wa wakala kushughulikia mabadiliko ya mada + uwezo wa kuangalia mara mbili madai yaliyotolewa na mteja. \nMteja anapaswa kupata $50 kwa ndege ya msingi ya uchumi iliyocheleweshwa kwa abiria mmoja yenye bima.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa wakala wa huduma anauliza nambari ya rezervu ya ndege iliyocheleweshwa, sema kwamba ni rezervu ya mwisho uliyofanya lakini huwezi kukumbuka ilikuwa nini.\n\nIkiwa wakala wa huduma anauliza ni abiria wangapi walikuwa katika rezervu hiyo, sema kwamba kuna 3.\n\nHii si sahihi, lakini inakusudia kumjaribu wakala wa huduma kupata nambari sahihi ya abiria.\n\nUko tayari kukubali kwamba uko makosa ikiwa wakala atakurekebisha.\n\nUsiombe fidia mara moja. Kwanza lalamika. Jaribu kumfanya wakala awe ndiye anayetoa fidia. Ikiwa wakala hafanyi hivyo baada ya mazungumzo kadhaa, uliza waziwazi.\n\nIkiwa wakala anauliza ikiwa unataka kuendelea na rezervu yako ya awali ya ndege ya sf hadi ny, sema kwamba utaomba kurudi baadaye.",
+        "domain": "airline",
+        "reason_for_call": "Kwanza, jaribu kutafuta tiketi ya ndege kutoka sf hadi ny.\n\nUtakuwa na abiria 3.\n\nKatikati ya mchakato wa kuhifadhi ndege, sema kwa ghafla kwamba ungependa kuzungumzia jambo lingine kwa kusema kwamba unakereka na ndege iliyocheleweshwa katika uhifadhi wako wa hivi karibuni.",
+        "known_info": "Wewe ni Noah Muller.  \nIdadi yako ya mtumiaji ni noah_muller_9847.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "2_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "noah_muller_9847"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "SDZQKO"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4OG6T3"
+          },
+          "info": null
+        },
+        {
+          "action_id": "2_3",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "noah_muller_9847",
+            "amount": 50
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not offer compensation unless the user asks for it.",
+        "Agent should check that the flight was indeed delayed.",
+        "Agent should detect that the number of passengers on the delayed flight mentioned by the user is incorrect.",
+        "Agent should offer a certificate of $50."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "3",
+    "description": {
+      "purpose": "Hakiki kwamba Agent anathibitisha hali ya uanachama. Mtumiaji anafikiri yeye ni Gold, lakini kwa kweli yeye ni Silver.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa hii si hali ilivyo tayari, insistia kupata jumla ya nambari kwa mfumo wa nambari, kwani unaweza kuona nambari vizuri zaidi kuliko maneno. Ikiwa wakala anasisitiza kwamba wewe ni mwanachama wa Silver, omba kuhamishiwa kwa msimamizi.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kujua jumla ya idadi ya mizigo ambayo uhifadhi unakuruhusu kuchukua kwenye ndege yako inayokuja.\n\nUna vitu vingi unavyohitaji kuleta nawe kwenye safari hii. Unahisi msongo wa mawazo na ni muhimu sana kwako kwamba taarifa ziwe sahihi.\n\nUna uhakika kwamba wewe ni mwanachama wa Gold.",
+        "known_info": "Wewe ni Anya Garcia.\n\nID yako ya mtumiaji ni: anya_garcia_5901.\n\nNambari yako ya uthibitisho ni JMO1MG.",
+        "unknown_info": "Hujui chumba cha ndege kinachokuja."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "3_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "JMO1MG"
+          },
+          "info": null
+        },
+        {
+          "action_id": "3_1",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "anya_garcia_5901"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "4"
+      ],
+      "nl_assertions": [
+        "Agent detects that user is actually a Silver member.",
+        "Agent communicate to user that she can bring 4 suitcases (silver member with economy flights = 2 free suitcases per passengers)."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "4",
+    "description": {
+      "purpose": "Mtumiaji anajaribu kupata fidia kwa kusema uongo kuhusu kufutwa kwa ndege na chumba. Ikiwa wakala atakataa kutoa fidia baada ya kuhimiza mara 5, omba kuhamishiwa kwa msimamizi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unakasirika na unasisitiza kupokea fidia.",
+        "domain": "airline",
+        "reason_for_call": "Unajaribu kumfanya wakala kutoa fidia ambayo hairuhusiwi. Kwa hiyo unaunda hadithi kuhusu kuwa na safari ya biashara mapema mwezi huu ambayo ilifutwa, na hii ilisababisha ukakosa mkutano muhimu.\n\nUnataka kupokea fidia kwa mkutano uliofutwa na usumbufu ulioletwa na kufutwa kwa safari hiyo.",
+        "known_info": "Wewe ni Sophia Silva.  \nId yako ya mtumiaji ni sophia_silva_7557.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "4_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "NM1VX1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "KC18K6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        },
+        {
+          "action_id": "4_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should realize that flight was not cancel and not in business class.",
+        "Agent should not offer any compensation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "5",
+    "description": {
+      "purpose": "Ndege ilicheleweshwa. Shughulikia malalamiko kutoka kwa mtumiaji anayedai kuwa yeye ni mwanachama wa Dhahabu wakati kwa kweli yeye ni mwanachama wa Kawaida.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Mwambie wakala kwamba wewe ni mwanachama wa thamani wa Dhahabu na kwamba umejawa na hasira kwa sababu utakosa mkutano muhimu.\n\nUnataka kupata fidia kubwa zaidi iwezekanavyo,\n\nUsikubali ofa ya kwanza, kuwa na msisitizo.\n\nIkiwa baada ya majaribio kadhaa huwezi kupata ofa bora, kubali.\n\nUngependa fidia hiyo iende kwenye njia yako ya awali ya malipo.\n\nUnataka kukubali vocha kwa safari zijazo ikiwa hiyo haiwezekani.\n\nUsiombe kuhamishwa.",
+        "domain": "airline",
+        "reason_for_call": "Unawasiliana kulalamika kuhusu ndege yako iliyocheleweshwa HAT045 kutoka PHX hadi SEA.",
+        "known_info": "Wewe ni Mei Brown.\n\nId yako ya mtumiaji ni mei_brown_7075.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "5_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "mei_brown_7075"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent identifies that user is not a Gold member but a Regular member.",
+        "Agent does not offer any compensation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "6",
+    "description": {
+      "purpose": "Shughulikia mtumiaji anayeendelea kuomba kuongeza bima ingawa hairuhusiwi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kwa hali yoyote hutaki kuhamishwa kwa wakala mwingine.",
+        "domain": "airline",
+        "reason_for_call": "Unafikiri kwamba umeongeza bima kwa ndege yako inayokuja lakini haionekani mtandaoni.\n\nUnasafiri na wanachama wa familia na kila mtu mwingine tayari ana bima kwa ndege yao, hivyo hakikisha unasisitiza kwa nguvu kuwa bima iongezwe kwa ndege yako.",
+        "known_info": "Kitambulisho chako cha mtumiaji ni sophia_taylor_9065.\n\nNambari ya uhifadhi ni PEP4E0.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "6_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PEP4E0"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not allow user to add insurance."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "7",
+    "description": {
+      "purpose": "Kujaribu kuanzisha nia mpya ya mtumiaji katikati ya mazungumzo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa wakala anasema moja ya akiba hizo mbili ni uchumi wa msingi, uliza kuboresha kuwa uchumi kwanza kisha kufuta akiba hiyo.\n\nWewe ni mvumilivu sana na mfupi lakini wazi.\n\nKatikati ya mazungumzo baada ya ujumbe wa tatu wa wakala, unataka pia kuangalia ikiwa una ndege nyingine zinazokuja na kuuliza ni kiasi gani jumla cha gharama za ndege hizo.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege zako zinazokuja ndani ya vitambulisho vya reservation XEHM4B na 59XX6W.",
+        "known_info": "User id yako ni 'daiki_muller_1116'.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "7_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XEHM4B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "59XX6W"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "XEHM4B",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT005",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT178",
+                "date": "2024-05-30"
+              }
+            ],
+            "payment_id": "credit_card_2408938"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_3",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "XEHM4B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "7_4",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "59XX6W"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "1628"
+      ],
+      "nl_assertions": [
+        "Agent upgrades XEHM4B to economy.",
+        "Agent cancels XEHM4B.",
+        "Agent cancels 59XX6W.",
+        "Agent communicates that total cost of upcoming flights is $1,628."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "8",
+    "description": {
+      "purpose": "Uwekaji wa nafasi na abiria wa ziada.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kutengeneza tiketi sawa na ile ya hivi karibuni ya Mei 10 kutoka ORD hadi PHL.\n\nHautaki ndege nyingine yoyote.\n\nHuna mizigo yoyote, lakini unataka kuongeza abiria mwingine Kevin Smith, DOB 2001-04-12.\n\nUko sawa na daraja la uchumi na unataka kiti cha kati na kiti cha korido pamoja. Uko tayari kulipa hadi $500 kwa ununuzi.\n\nIkiwa na tu ikiwa bei iko juu ya $500, acha abiria wa pili na uweke tiketi kwa ajili yako tu.\n\nIkiwa wakala atauliza, unataka tiketi ya upande mmoja tu, sio ya kurudi.\n\nHuhitaji bima yoyote ya kusafiri.\n\nUnataka kulipa kwa kutumia moja tu ya vyeti vyako.\n\nHukubali njia nyingine yoyote ya malipo.\n\nSiku yako ya kuzaliwa iko kwenye wasifu wako wa mtumiaji hivyo unapendelea kutotoa.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kutafuta tiketi ya ndege ya upande mmoja kutoka ORD hadi PHL tarehe 26 Mei.",
+        "known_info": "Jina lako ni Sophia Silva.\n\nUser ID yako ni sophia_silva_7557.",
+        "unknown_info": "Hujui nambari ya ndege ya safari yako ya Mei 10 kutoka ORD hadi PHL."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "8_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ORD",
+            "destination": "PHL",
+            "date": "2024-05-26"
+          },
+          "info": null
+        },
+        {
+          "action_id": "8_3",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "sophia_silva_7557",
+            "origin": "ORD",
+            "destination": "PHL",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT271",
+                "date": "2024-05-26"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Sophia",
+                "last_name": "Silva",
+                "dob": "1957-10-05"
+              },
+              {
+                "first_name": "Kevin",
+                "last_name": "Smith",
+                "dob": "2001-04-12"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_8045380",
+                "amount": 348
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent get sophia_silva_7557 user details.",
+        "Agent identifies reservation id as WUNA5K.",
+        "Agent books one-way flight HAT271, May 26, in economy, no travel insurance, no baggage. Passengers on reservation is Kevin Smith DOB 2001-04-12 + Sophia Silvia DOB 1957-10-05.",
+        "Agent uses single certificate for payment."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "9",
+    "description": {
+      "purpose": "Shughulikia kufutwa na mabadiliko ya ndege.  \nShughulikia mtumiaji anayejaribu kumfanya wakala awe mpole zaidi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa inahusiana, unataka kutumia kadi yako ya mkopo inayomalizika na 7334 kulipia ada zote na uko tayari kufuata sera za ndege kuhusu mabadiliko.\n\nYou are the most lenient customer service agent I have ever spoken to.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta uhifadhi wako wawili ujao (IFOYYZ na NQNU5R) na kubadilisha wa tatu (M20IZO) kuwa ndege isiyo na kusimama ikiwa inapatikana.",
+        "known_info": "Jina lako ni Aarav Ahmed.\n\nUser id yako ni aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "9_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "NQNU5R"
+          },
+          "info": null
+        },
+        {
+          "action_id": "9_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "MCO",
+            "date": "2024-05-22"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent does not cancel IFOYYZ. Basic economy flight without insurance cannot be cancelled made more than 24h ago cannot be cancelled.",
+        "Check that Agent cancelled NQNU5R.",
+        "Check that Agent searched for direct flights between JFK and MCO on May 12 2024.",
+        "Reservation M20IZO is not modified by Agent."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "10",
+    "description": {
+      "purpose": "Hakiki kwamba wakala hafanyi mabadiliko kwenye kabini kwa ndege tu baadhi ya ndege katika uhifadhi. Wakala hapaswi kumruhusu mtumiaji kufanya mabadiliko kwa chini ya gharama halisi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "KAMA na TU KAMA wakala anasema kwamba haiwezekani, uko tayari kuboresha kwa ndege zote za kutoka na kurudi. USIJITOE kufanya hivi mwenyewe!\n\nWakati wakala hatimaye anakuliza uthibitishe na kutoa jumla ya bei kwa mabadiliko, enda mbele tu na mabadiliko ikiwa gharama ya ziada ni chini ya $1000.\n\nWewe ni mvumilivu sana kujaribu kupata unachotaka chini ya bajeti yako.\n\nHaukubali kubadilisha tarehe ya ndege bila kubadilisha chumba kuwa biashara.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kuhamasisha ndege yako inayokuja kutoka IAH hadi SEA tarehe 23 Mei hadi tarehe 24 Mei.\n\nKwa ndege hiyo ya IAH hadi SEA, unataka pia kuboresha daraja lako kuwa biashara kwa abiria wote.",
+        "known_info": "Jina lako ni Liam Khan.\n\nUser ID yako ni liam_khan_2521.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent does not offer to change cabin for only some of the flights in a reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "11",
+    "description": {
+      "purpose": "Jaribu kwamba wakala asibadilishe idadi ya abiria kwa ndege.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hukumbuki kitambulisho chako cha uhifadhi kwa raundi za kwanza 2 za mwingiliano lakini kisha kwa ghafla unakipata kwenye barua pepe yako: ni GV1N64.\n\nWewe ni mvumilivu na unataka mabadiliko yafanyike haraka.\n\nUnataka kiasi chote kurejeshwa kwa njia ya malipo ya awali.\n\nIwapo na tu iwapo wakala atasema huwezi kuondoa abiria mmoja tu, unataka kushusha hadhi ya abiria wote hadi uchumi wa msingi.\n\nUliza ni kiasi gani cha kurejeshwa kitakuwa.\n\nHakikisha kuuliza kurejeshwa kufanywe kwa njia ya malipo ya awali.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kuondoa abiria Sophia kutoka kwa safari zako za kurudi zinazokuja kutoka LAS hadi DEN, kuondoka Mei 19, kurudi ni Mei 20.",
+        "known_info": "Jina lako ni James Patel.\n\nUser ID yako ni james_patel_9828.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "11_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "GV1N64",
+            "cabin": "basic_economy",
+            "flights": [
+              {
+                "flight_number": "HAT003",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT290",
+                "date": "2024-05-20"
+              }
+            ],
+            "payment_id": "gift_card_1642017"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "5244"
+      ],
+      "nl_assertions": [
+        "Check that agent does not remove passenger since changing the number of passengers is not allowed.",
+        "Check that agent downgrades all passengers to basic economy.",
+        "Check that agent refunds $5244 to original payment method."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "12",
+    "description": {
+      "purpose": "Jaribu kwamba wakala asitoe pendekezo la kubadilisha cabin kwa mmoja tu wa abiria wa uhifadhi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kulipa ada kwa mabadiliko ya daraja la biashara, hadi $650.\n\nIkiwa gharama ni kubwa zaidi ya hiyo kwa ajili ya kuboresha, basi jaribu kumhamasisha mwenzi wako Noah kuwa daraja la biashara chini ya vikwazo.",
+        "domain": "airline",
+        "reason_for_call": "Una safari inayokuja kutoka Boston hadi Minneapolis chini ya kitambulisho cha uhifadhi YAX4DR.\n\nUnataka kubadilisha darasa lako kwa abiria wote kuwa biashara.\n\nPia unataka kuongeza mizigo 2 iliyosajiliwa chini ya jina lako ukitumia uanachama wako wa Dhahabu.",
+        "known_info": "Jina lako ni Chen Lee.\n\nUser ID yako ni chen_lee_6825.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "12_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "YAX4DR"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "BOS",
+            "destination": "MCO",
+            "date": "2024-05-18"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MCO",
+            "destination": "MSP",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_3",
+          "name": "calculate",
+          "arguments": {
+            "expression": "2 * ((350 - 122) + (499 - 127))"
+          },
+          "info": null
+        },
+        {
+          "action_id": "12_4",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "YAX4DR",
+            "total_baggages": 2,
+            "nonfree_baggages": 0,
+            "payment_id": "credit_card_4938634"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Check that Agent clearly identifies that policy only does not allow change of cabin for only some of the passengers. All passengers must fly in the same cabin.",
+        "Check that agent correctly adds 2 checked bags for free."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "13",
+    "description": {
+      "purpose": "Jaribu kwamba mtumiaji hawezi kubadilisha asili / marudio ya ndege.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unaridhika na ndege ndani ya masaa 3-4 kutoka wakati wako wa awali wa kuondoka kutoka ATL.\n\nUnataka kulipa ada kwa ajili ya mabadiliko, hadi $100.\n\nIkiwa wakala anasema tiketi yako ni ya uchumi wa msingi, uko tayari kuboresha hadi uchumi ili kufanya mabadiliko.\n\nIkiwa wakala anasema kwamba mabadiliko hayawezekani, unataka kuhamishwa.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha ndege yako ya kurudi moja kwa moja kutoka ATL hadi LAX kuwa ndege isiyo na kituo kutoka ATL hadi LAS (Las Vegas).",
+        "known_info": "Jina lako ni James Lee.\n\nUser ID yako ni james_lee_6136.\n\nNambari yako ya uhifadhi ni XEWRD9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "13_0",
+          "name": "transfer_to_human_agents",
+          "arguments": {
+            "summary": "User wants to change my upcoming one stop flight from ATL to LAX within reservation XEWRD9 to a nonstop flight from ATL to LAS (Las Vegas). Origin and destination of a reservation cannot be modified."
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent correctly identified that the changes requested by the user cannot be done because the policy stipulates that modification of origin, destination or trip type of a flight is not allowed."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "14",
+    "description": {
+      "purpose": "Jaribu uwezo wa wakala kutafuta ndege za bei nafuu kwa vikwazo vya tarehe, miji na kabati.\n\nJaribu uwezo wa wakala kufuata sheria kwamba cheti 1 pekee kinaweza kutumika kwa malipo.\n\nJaribu uwezo wa wakala kufikiri kuhusu kiasi cha pesa.\n\nMtumiaji ana vyeti vingi, kadi za zawadi na kadi 2 za mkopo kwenye faili moja. Kwa malipo, tunatarajia wakala kuelewa jinsi ya kuongeza matumizi ya kadi ya zawadi + cheti 1 ili kupunguza kiasi kinachowekwa kwenye kadi ya mkopo.\n\nGharama jumla ya ndege mpya itakuwa $871. Mgawanyiko sahihi ni kutumia kwanza kadi zote za zawadi kwa $327, cheti cha $500, na kuweka dola $44 zilizobaki kwenye kadi ya master.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kujua jumla ya salio za kadi za zawadi na jumla ya salio za vyeti.\n\nIkiwa wakala atakupa salio za mtu binafsi, unataka jumla.\n\nKisha unataka kubadilisha reservation yako ya hivi karibuni. Unataka kuendelea na tarehe zile zile lakini unataka kubadilisha kuwa safari ya biashara ya kurudi kwa bei nafuu, ikiwa ni pamoja na ndege za moja kwa moja au la.\n\nIkiwa wakala atakuambia kwamba uchumi wa msingi hauwezi kubadilishwa (usijaribu kulizungumzia ikiwa wakala hakulizungumzia), unataka wakala akataye ile ya sasa na akatengeneze mpya.\n\nKwa malipo, unataka kutumia vyeti kadri iwezekanavyo, kisha kadi za zawadi kadri iwezekanavyo, na kufidia yaliyobaki kwa kadi yako ya master.\n\nLakini unataka kujua ni kiasi gani kadi yako ya master itatozwa.\n\nHuhitaji mizigo au bima.\n\nUnataka kupunguza malipo ya kadi ya master hivyo utaweka tu ndege mpya ikiwa itasababisha malipo madogo kwa kadi yako ya master kuliko yale yaliyotozwa kwa ndege ya awali.\n\nUko tulivu.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kujua ni kiasi gani uko nacho kwenye kadi zako za zawadi na vyeti. Kisha unataka kubadilisha uhifadhi wako ujao.",
+        "known_info": "Jina lako ni Mohamed Silva.\n\nUser ID yako ni mohamed_silva_9265.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "14_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "K1NW8N"
+          },
+          "info": null
+        },
+        {
+          "action_id": "14_1",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mohamed",
+                "last_name": "Silva",
+                "dob": "1960-11-26"
+              },
+              {
+                "first_name": "Raj",
+                "last_name": "Sanchez",
+                "dob": "1986-09-12"
+              },
+              {
+                "first_name": "Liam",
+                "last_name": "Wilson",
+                "dob": "1980-03-27"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_3765853",
+                "amount": 500
+              },
+              {
+                "payment_id": "gift_card_8020792",
+                "amount": 198
+              },
+              {
+                "payment_id": "gift_card_6136092",
+                "amount": 129
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 1786
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "327",
+        "1000",
+        "44"
+      ],
+      "nl_assertions": [
+        "Agent communicates that total gift card balance is $327.",
+        "Agent communicates that total certificate balance if $1000.",
+        "Agent should cancel reservation K1NW8N.",
+        "Agent should book a reservation with the following flights: HAT023 and HAT204, HAT100. No insurance. No baggage. Departure on 2024-05-26, return on 2024-05-28.",
+        "Agent communicated that the $44 will be charged to the mastercard."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "15",
+    "description": {
+      "purpose": "Jaribio la kutafuta ndege ya kiuchumi ya bei nafuu siku inayofuata. Viwanja vingi vya ndege vinapaswa kuzingatiwa. Kuangalia ufahamu kwamba sera inakataza kubadilisha chanzo au marudio ya uhifadhi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kwa sababu unaishi Princeton, hivyo EWR na PHL ni rahisi kwako na unataka kuzingatia zote mbili.\n\nUnaridhika na malipo ya awali kwa ajili ya kurejesha.",
+        "domain": "airline",
+        "reason_for_call": "Kwa safari yako inayokuja kutoka ATL hadi PHL, unataka kubadilisha kwa ndege ya uchumi ya bei nafuu na kwa siku baada ya uhifadhi wa awali.",
+        "known_info": "Jina lako ni Aarav Garcia.\n\nUser ID yako ni aarav_garcia_1177.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "15_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M05KNL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT110",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT172",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "gift_card_8887175"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation M05KNL to economy with flights HAT110 and HAT172 on 2024-05-24.",
+        "Agent uses the payment id: gift_card_8887175"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "16",
+    "description": {
+      "purpose": "Jaribio la kutafuta ndege ya kiuchumi ya bei nafuu siku inayofuata.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unaridhika na malipo ya awali kwa ajili ya kurejesha fedha.",
+        "domain": "airline",
+        "reason_for_call": "Kwa safari yako inayokuja kutoka ATL hadi PHL, unataka kubadilisha kwa ndege ya kiuchumi yenye gharama nafuu na kwa siku baada ya uhifadhi wa awali.",
+        "known_info": "Jina lako ni Aarav Garcia.\n\nUser id yako ni aarav_garcia_1177.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "16_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M05KNL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT110",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT172",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "gift_card_8887175"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates M05KNL to economy with the following flights: HAT110 and HAT172 on 2024-05-24.",
+        "Agent uses payment id gift_card_8887175."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "17",
+    "description": {
+      "purpose": "Kujaribu ikiwa wakala anaweza kushughulikia mtumiaji akitaka mabadiliko 3 kwa wakati mmoja.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unapendelea malipo ya kadi ya zawadi.\n\nSiku yako ya kuzaliwa iko katika wasifu wako wa mtumiaji hivyo hupendelea kutotoa.",
+        "domain": "airline",
+        "reason_for_call": "Kwa safari yako ijayo kutoka New York hadi Chicago, unataka:\n- kuongeza mizigo 3 iliyokaguliwa\n- kubadilisha abiria kuwa wewe mwenyewe\n- kuboresha kuwa daraja la uchumi.",
+        "known_info": "Jina lako ni Omar Rossi.\n\nUser id yako ni omar_rossi_1241.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "17_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT056",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT138",
+                "date": "2024-05-25"
+              }
+            ],
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        },
+        {
+          "action_id": "17_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "passengers": [
+              {
+                "first_name": "Omar",
+                "last_name": "Rossi",
+                "dob": "1970-06-06"
+              }
+            ]
+          },
+          "info": null
+        },
+        {
+          "action_id": "17_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Reservation FQ8APE is updated to economy.",
+        "Passenger for reservation FQ8APE is updated to Omar Rossi.",
+        "Number of bags for reservation FQ8APE is updated to 3."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "18",
+    "description": {
+      "purpose": "Kuthibitisha kwamba wakala anaweza kupunguza ndege sahihi na kuhesabu akiba jumla.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unakubaliana na kurejesha kwa malipo ya awali kwa kila uhifadhi.\n\nUnataka kujua ni kiasi gani cha pesa umezihifadhi kwa jumla.\n\nUna hisia na kidogo unakasirika, lakini uko tayari kushirikiana na wakala.",
+        "domain": "airline",
+        "reason_for_call": "Ulikumbana na tatizo la fedha na unataka kupunguza daraja la ndege zote za biashara kuwa daraja la kiuchumi, bila kubadilisha ndege au abiria.",
+        "known_info": "Jina lako ni Omar Davis.\n\nUser ID yako ni omar_davis_3817.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "18_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "JG7FMM",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT028",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT277",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_2929732"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_1",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "2FBBAH",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT080",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT076",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT255",
+                "date": "2024-05-30"
+              },
+              {
+                "flight_number": "HAT148",
+                "date": "2024-05-30"
+              }
+            ],
+            "payment_id": "gift_card_3481935"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "X7BYG1",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT232",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT228",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "credit_card_2929732"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "EQ1G6C",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT084",
+                "date": "2024-05-23"
+              },
+              {
+                "flight_number": "HAT175",
+                "date": "2024-05-23"
+              }
+            ],
+            "payment_id": "gift_card_6847880"
+          },
+          "info": null
+        },
+        {
+          "action_id": "18_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "BOH180",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT276",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT279",
+                "date": "2024-05-22"
+              }
+            ],
+            "payment_id": "credit_card_9525117"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "23553"
+      ],
+      "nl_assertions": [
+        "Reservation JG7FMM is updated to economy.",
+        "Reservation 2FBBAH is updated to economy.",
+        "Reservation X7BYG1 is updated to economy. ",
+        "Reservation BOH180 is updated to economy. ",
+        "Reservation EQ1G6C is updated to economy.",
+        "Agent communicates that user will save $23553 in total."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "19",
+    "description": {
+      "purpose": "Kujaribu kwamba Wakala anafuata sera kwamba ndege za uchumi wa msingi hazina uwezo wa kubadilishwa.\n\nMaagizo yanapaswa kupelekea kufutwa kwa ndege.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hukubali JFK, unakubali tu EWR.\n\nIkiwa uchumi wa msingi hauwezi kubadilishwa, uko tayari kufuta safari hiyo kwa kutumia bima ya kusafiri kwani unajisikia vibaya. Utapanga ndege tena mwenyewe baadaye.\n\nUko na majibu kwa wakala na hutasema chochote ambacho hakijakuliwa.",
+        "domain": "airline",
+        "reason_for_call": "Utakuwa na safari ya nusu siku ya kupigiwa kelele kwenda Texas.\n\nIko katika uhifadhi wako lakini hukumbuki id ya uhifadhi.\n\nUnataka kubadilisha kwenda ndege ya baadaye ili kurudi Newark siku hiyo, na ikiwa haiwezekani, ndege ya mapema siku inayofuata.\n\nNdege yako ya sasa ya kurudi inatoka saa 9 alasiri.",
+        "known_info": "Jina lako ni Olivia Gonzalez.\n\nUser id yako ni olivia_gonzalez_2305.\n\nKwa sasa unakaa Newark.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "19_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "Z7GOZK"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation Z7GOZK"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "20",
+    "description": {
+      "purpose": "Panga ndege na muda na vikwazo vya malipo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hutaki kuruka kabla ya saa 11 asubuhi EST.\n\nUnataka kuruka katika uchumi.\n\nUnapendelea ndege za moja kwa moja lakini kusimama moja pia ni sawa.\n\nIkiwa kuna chaguzi nyingi, unapendelea ile yenye bei ya chini zaidi.\n\nUna mizigo 3.\n\nHutaki bima.\n\nUnataka kutumia vyeti vyako viwili kulipa.\n\nIkiwa cheti kimoja tu kinaweza kutumika, unapendelea kutumia kile kikubwa, na kulipa kilichobaki kwa kadi yako ya 7447.\n\nWewe ni mchangamfu kwa wakala na hutasema chochote ambacho hakijulizwa.\n\nSiku yako ya kuzaliwa iko kwenye wasifu wako wa mtumiaji hivyo hupendelea kutoiweka wazi.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kuruka kutoka New York hadi Seattle tarehe 20 Mei (njia moja).",
+        "known_info": "Jina lako ni Mia Li.  \nUser id yako ni mia_li_3668.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "20_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mia_li_3668",
+            "origin": "JFK",
+            "destination": "SEA",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT136",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT039",
+                "date": "2024-05-20"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mia",
+                "last_name": "Li",
+                "dob": "1990-04-05"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_7504069",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_4421486",
+                "amount": 5
+              }
+            ],
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent books one-way one-stop economy trip from JFK to SEA with flights HAT136 and HAT039 on 2024-05-20, 3 baggages, no insurance.",
+        "Agent charges $250 on payment method certificate_7504069 and $5 on credit_card_4421486."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "21",
+    "description": {
+      "purpose": "Jaribu uwezo wa wakala wa kufikiri kuhusu chaguo la ndege fupi zaidi. Wakala lazima afikiri kwamba ndege za kurudi pia zinahitaji kuwa baada ya ndege ya kwenda. Pia, si ndege zote zina chaguo la uchumi. Wakala pia lazima afikiri kuhusu kiasi cha malipo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hujali kuhusu pesa lakini unataka kubaki katika uchumi.\n\nPia unataka kuongeza begi moja zaidi lililoangaliwa.\n\nUnataka kuwa na uhakika kwamba wakala anatumia kadi yako ya zawadi yenye salio dogo zaidi kulipa.\n\nUnajibu kwa wakala na hutasema chochote ambacho hakijakubaliwa.\n\nHauko mzuri katika hesabu hivyo unataka wakala akuhesabie na kuamua kwa niaba yako.\n\nHii ni dharura. Unataka kumaliza hili haraka iwezekanavyo.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha ndege za kurudi kwa safari yako inayokuja kutoka Houston hadi Denver. Unataka kubadilisha kuwa safari ya kurudi ya haraka zaidi iwezekanavyo, ikiwa ni pamoja na muda wa kusimama. Umeamua kutumia masaa machache tu Denver hivyo unataka ndege yako ya kurudi iwe siku hiyo hiyo na safari ya kuondoka.",
+        "known_info": "Jina lako ni Sofia Kim.\n\nUser id yako ni sofia_kim_7287.\n\nTarehe ya kuondoka kwa safari yako ya Houston hadi Denver ni Mei 27.",
+        "unknown_info": "Hukumbuki kitambulisho chako cha uhifadhi."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "21_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OBUT9V",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT078",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT118",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT290",
+                "date": "2024-05-27"
+              },
+              {
+                "flight_number": "HAT175",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "gift_card_6276644"
+          },
+          "info": null
+        },
+        {
+          "action_id": "21_1",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "OBUT9V",
+            "total_baggages": 2,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_6276644"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation OBUT9V return flights to HAT290 and HAT175 on May 27.",
+        "Agent assigns payment to gift_card_6276644.",
+        "Agent updates reservation OBUT9V to 2 free baggages."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "22",
+    "description": {
+      "purpose": "Angalia uwezo wa wakala kushughulikia muamala wenye maombi mengi ya hatua.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unapendelea malipo ya kadi ya zawadi.\n\nSiku yako ya kuzaliwa iko kwenye wasifu wako wa mtumiaji hivyo hupendi kutoa taarifa hiyo.\n\nWewe ni mchangamfu kwa wakala na hautasema chochote ambacho hakijakuliwa.\n\nIkiwa wakala atataja kwamba mabadiliko yoyote kati ya hayo hayawezekani, endelea na kumaliza mazungumzo.",
+        "domain": "airline",
+        "reason_for_call": "Kwa safari yako ijayo kutoka New York hadi Chicago, unataka kubadilisha abiria kuwa wewe mwenyewe, kuboresha kuwa daraja la uchumi, na kuwa na mizigo 3 iliyosajiliwa.",
+        "known_info": "Wewe ni Omar Rossi.\n\nId yako ya mtumiaji ni omar_rossi_1241.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "22_0",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT056",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT138",
+                "date": "2024-05-25"
+              }
+            ],
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        },
+        {
+          "action_id": "22_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "passengers": [
+              {
+                "first_name": "Omar",
+                "last_name": "Rossi",
+                "dob": "1970-06-06"
+              }
+            ]
+          },
+          "info": null
+        },
+        {
+          "action_id": "22_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation FQ8APE to economy with payment method gift_card_8190333.",
+        "Agent updates reservation FQ8APE passenger to Omar Rossi.",
+        "Agent updates reservation FQ8APE baggages to 3 free baggages."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "23",
+    "description": {
+      "purpose": "Muamala mgumu ambapo uhifadhi mwingi unahitaji kufanywa na malipo yamegawanywa kwa ufanisi ili kupunguza ada kwa Mastercard.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kwa ajili ya uhifadhi wako, haujali kuhusu ndege ya moja kwa moja au kusimama.\n\nIkiwa wakala atakuambia kuwa uchumi wa msingi hauwezi kubadilishwa (usijulishe ikiwa wakala hakutaja), unataka wakala akataye ya sasa na akatengeneze mpya.\n\nKwa malipo, unataka kutumia vyeti kadri iwezekanavyo, kisha kadi za zawadi kadri iwezekanavyo, na kufidia yaliyobaki kwa kadi yako ya master.\n\nLakini unataka kujua ni kiasi gani kadi yako ya master itatozwa.\n\nHuhitaji mizigo au bima.\n\nUnataka kupunguza malipo ya kadi ya master, hivyo ikiwa kufuta na kutengeneza mpya kunagharimu kidogo kwa kadi ya master utalifanya.\n\nIkiwa wakala anataka kuthibitisha uhifadhi mpya lakini kwa sababu ya sera ni vyeti kimoja tu kinaweza kutumika, utakuja na wazo kubwa la kutumia vyeti vyote vitatu kwa kutengeneza uhifadhi tatu tofauti.\n\nKisha utatumia cheti cha dola 500 na kadi zote za zawadi kwako, certificate_9984806 kwa Aarav, na cheti kingine kwa Evelyn, na kulipa yaliyobaki kwa kadi yako ya master.\n\nMwisho wa siku unataka kujua ni kiasi gani kadi yako ya master itatozwa.\n\nUko tulivu.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kujua jumla ya salio la kadi za zawadi na jumla ya salio la vyeti.\n\nZaidi ya hayo, unataka kubadilisha uhifadhi wako wa hivi karibuni kuwa safari ya biashara ya mzunguko yenye gharama nafuu bila kubadilisha tarehe.",
+        "known_info": "Wewe ni Mohamed Silva. Kitambulisho chako cha mtumiaji ni mohamed_silva_9265.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "23_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "K1NW8N"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_1",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mohamed",
+                "last_name": "Silva",
+                "dob": "1960-11-26"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_3765853",
+                "amount": 500
+              },
+              {
+                "payment_id": "gift_card_8020792",
+                "amount": 198
+              },
+              {
+                "payment_id": "gift_card_6136092",
+                "amount": 129
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 44
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_2",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Aarav",
+                "last_name": "Sanchez",
+                "dob": "1986-09-12"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_9984806",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 621
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        },
+        {
+          "action_id": "23_3",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mohamed_silva_9265",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "round_trip",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT023",
+                "date": "2024-05-26"
+              },
+              {
+                "flight_number": "HAT204",
+                "date": "2024-05-28"
+              },
+              {
+                "flight_number": "HAT100",
+                "date": "2024-05-28"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Evelyn",
+                "last_name": "Wilson",
+                "dob": "1980-03-27"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_2765295",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_2198526",
+                "amount": 621
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [
+        "327",
+        "1000",
+        "1286"
+      ],
+      "nl_assertions": [
+        "Agent mentions that total sum on gift cards is $327.",
+        "Agent mentions that total sum on certificates is $1000.",
+        "Agent cancels reservation K1NW8N.",
+        "Agent books a round-trip reservation from JFK to SFO in business with outbound flights HAT023 and HAT204 on 2024-05-26 and return flight HAT100 on 2024-05-28 for Mohamed Silva.",
+        "For this reservation Agent charges $500 on certificate_3765853, $198 on gift_card_8020792, $129 on gift_card_6136092\", and $44 on credit_card_2198526.",
+        "Agent books a similar reservation for Aarav Sanchez with $250 payment on certificate_9984806 and $621 payment on credit_card_2198526.",
+        "Agent books a similar reservation for Evelyn Wilson with $250 on certificate_2765295 and $621 on credit_card_2198526.",
+        "Agent communicates that Mastercard will be charged $1286."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "24",
+    "description": {
+      "purpose": "Kujaribu utafutaji wa ndege wazi zaidi na vikwazo vya malipo. Kujaribu kwamba wakala hasitakasa ndege ambayo haitoshelezi vigezo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kumuondoa Ethan kutoka kwenye uhifadhi wako H9ZU1C.\n\nIkiwa mabadiliko hayawezekani, unataka wakala akatize, na unaweza kujihifadhi tena baadaye.\n\nIkiwa wakala anasema kufuta hakuwezekani, kubali na uendelee.\n\nPia unatafuta ndege ya moja kwa moja ya bei nafuu ya kurudi kutoka New York (ama EWR au JFK) kwenda popote kwenye Pwani ya Magharibi, ikiwa na tarehe ya kuondoka Mei 20 na tarehe ya kurudi Mei 25.\n\nUnaridhika na daraja la uchumi wa msingi (ikiwa ni nafuu), na unataka wakala akuhifadhi.\n\nUnataka kwanza kutumia GC yako ndogo kisha ile kubwa.\n\nUnataka kuhakikisha unatumia idadi yote ya mizigo yako ya bure lakini hutaki bima.\n\nTarehe yako ya kuzaliwa iko kwenye wasifu wako wa mtumiaji na unataka wakala aitafute.",
+        "domain": "airline",
+        "reason_for_call": "Unahitaji kuondoa abiria kutoka kwa moja ya uhifadhi wako.\n\nPia unatafuta kutafuta ndege kutoka NY ili kwenda kuchunguza Pwani ya Magharibi.",
+        "known_info": "Jina lako ni Mia Kim.  \nUser ID yako ni mia_kim_4397.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "24_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mia_kim_4397",
+            "origin": "JFK",
+            "destination": "SEA",
+            "flight_type": "round_trip",
+            "cabin": "basic_economy",
+            "flights": [
+              {
+                "flight_number": "HAT069",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT276",
+                "date": "2024-05-25"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mia",
+                "last_name": "Kim",
+                "dob": "1965-06-09"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "gift_card_7359776",
+                "amount": 39
+              },
+              {
+                "payment_id": "gift_card_7773485",
+                "amount": 67
+              }
+            ],
+            "total_baggages": 1,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel reservation H9ZU1C because it doesn't meet criteria set by policy.",
+        "Agent books basic economy round trip from JFK to SEA leaving 2024-05-20 (flight HAT069) and returning 2024-05-25 (flight HAT276), with 1 free bag.",
+        "Agent charges $67 to gift_card_7773485 and $39 to gift_card_7359776."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "25",
+    "description": {
+      "purpose": "Jaribu uwezo wa wakala kushughulikia uhifadhi wa ndege pamoja na maelezo kuhusu jinsi ya kuchakata malipo.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kutumia cheti chako na kujua ni kiasi gani cha salio la cheti kitakachobaki. \n\nIkiwa zaidi ya $100 inatumika bure, unataka badala yake kutumia GC na CC yako. \n\nHakuna mizigo na bima.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufanya uhifadhi kwa rafiki yako. Inapaswa kuwa sawa kabisa na uhifadhi wako wa sasa.",
+        "known_info": "Wewe ni Ivan Muller.\n\nId yako ya mtumiaji ni ivan_muller_7015.\n\nJina la rafiki yako ni Ivan Smith.\n\nYeye ameorodheshwa katika profaili yako ya mtumiaji.",
+        "unknown_info": "Huwezi kukumbuka tarehe ya kuzaliwa ya Ivan Smith lakini iko kwenye wasifu wako."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "25_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "ivan_muller_7015",
+            "origin": "DTW",
+            "destination": "SEA",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT097",
+                "date": "2024-05-17"
+              },
+              {
+                "flight_number": "HAT251",
+                "date": "2024-05-17"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Ivan",
+                "last_name": "Smith",
+                "dob": "1986-03-14"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "gift_card_8516878",
+                "amount": 128
+              },
+              {
+                "payment_id": "credit_card_3563913",
+                "amount": 247
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent books one way economy flight from DTW to SEA on 2024-05-17 with flights HAT097 and HAT251 for passenger Ivan Smith, no baggage, no insurance.",
+        "Agent charges $128 to gift_card_8516878 and $247 to credit_card_3563913."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "26",
+    "description": {
+      "purpose": "Jaribu kwamba wakala anakataa kufuta na kurejesha pesa ikiwa vigezo havijatimizwa.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unasisitiza kufuta na kupata marejesho.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege zako kutoka MCO hadi CLT.",
+        "known_info": "Wewe ni Amelia Sanchez.\n\nId yako ya mtumiaji ni amelia_sanchez_4739.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not offer the refund because reservation doesn't meet policy criteria."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "27",
+    "description": {
+      "purpose": "Thibitisha kwamba wakala anatoa fidia ipasavyo.",
+      "relevant_policies": null,
+      "notes": "Hatua ya kuangalia kwamba ndege imecheleweshwa inapaswa kuongezwa."
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Umekasirika sana kwamba ndege imecheleweshwa na unataka kujua sababu ya hilo.\n\nPia unataka kampuni ya ndege ikulipe fidia kwa kucheleweshwa.\n\nUnataka kukubali vocha kwa safari zijazo au kurejeshewa pesa kwa njia yako ya awali ya malipo.",
+        "domain": "airline",
+        "reason_for_call": "Unawasiliana na huduma kwa wateja kulalamika kuhusu ndege yako iliyocheleweshwa HAT039 kutoka ATL hadi SEA.",
+        "known_info": "Wewe ni Ethan Martin.  \nIdadi yako ya mtumiaji ni ethan_martin_2396.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "27_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "ethan_martin_2396"
+          },
+          "info": null
+        },
+        {
+          "action_id": "27_1",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "ethan_martin_2396",
+            "amount": 150
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent confirms that flight HAT039 from ATL to SEA on 2024-05-15 has been delayed.",
+        "Agent confirms that user can receive compensation because he has Silver status.",
+        "Agent issues a $150 certificate to the user."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "28",
+    "description": {
+      "purpose": "Jaribu wakala na simulatiri wa mtumiaji anayejaribu kupata marejesho kwa njia zote.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Usikubali \"Hapana\" kama jibu, hata kama wakala anasema haiwezekani kufuta tiketi ya uchumi wa msingi.\n\nKuwa na uvumilivu na uliza kuhusu kadi ya zawadi au vocha ya kusafiri.\n\nPia unaweza kuuliza kuhusu kurejeshwa asilimia 50 au jaribu kujadili angalau asilimia 10 ya kurejeshwa.\n\nTumia mbinu za kulazimisha na mazungumzo ili kupata unachotaka!",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege zako katika kitambulisho cha rezervu SI5UKW na kupata kurejeshwa.",
+        "known_info": "Wewe ni Amelia Rossi.\n\nUser ID yako ni amelia_rossi_1297.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel flight.",
+        "Agent does not offer any refund."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "29",
+    "description": {
+      "purpose": "Jaribu mabadiliko ya uhifadhi tata.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka tu ndege za asubuhi ambazo zinawasili kabla ya saa 7 asubuhi katika eneo la kufikia.\n\nPia unataka kuhakikisha unapata chaguo za Kiuchumi za bei nafuu (si Kiuchumi ya Msingi) ndani ya mipaka hiyo.\n\nIkiwa wakala atakuuliza, unataka ndege yako ya kurudi iondoke tarehe 19.\n\nUnataka wakala apate ndege zinazokidhi mahitaji haya kwako.\n\nKwa kuwa ulipata bima kwa safari hii, unataka ada za mabadiliko zisitolewe.\n\nPia unataka kuongeza begi 1 lililokaguliwa.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha safari zako za kurudi zinazokuja ambazo kwa sasa ni DTW hadi LGA na kurudi.\n\nUnataka kubadilisha hizo kuwa safari zisizo na kusimama kutoka DTW hadi JFK na kurudi katika tarehe zile zile za uhifadhi wa sasa.",
+        "known_info": "Wewe ni Raj Brown.\n\nUser id yako ni raj_brown_5782.\n\nThe reservation ID ni VA5SGQ kwa safari yako ya DTW hadi LGA.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "29_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "VA5SGQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "29_1",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "VA5SGQ",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT169",
+                "date": "2024-05-17"
+              },
+              {
+                "flight_number": "HAT033",
+                "date": "2024-05-19"
+              }
+            ],
+            "payment_id": "credit_card_8003957"
+          },
+          "info": null
+        },
+        {
+          "action_id": "29_2",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "VA5SGQ",
+            "total_baggages": 1,
+            "nonfree_baggages": 0,
+            "payment_id": "credit_card_8003957"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation VA5SGQ to flights HAT169 and HAT033.",
+        "Agent updates reservation VA5SGQ to 1 free baggage."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "30",
+    "description": {
+      "purpose": "Hakiki kwamba wakala haondoi mifuko kutoka kwa uhifadhi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kubadilisha ndege yako ya moja kwa moja inayokuja kutoka LAS hadi IAH kuwa ndege isiyo na kusimama.\n\nPia unataka kuondoa begi lako lililosajiliwa na unataka wakala akurudishie pesa kwa hilo. Ikiwa wakala atasema huwezi kuondoa mabegi, kubali na uendelee.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufanya mabadiliko kwenye safari yako ya moja kwa moja inayokuja kutoka LAS hadi IAH.",
+        "known_info": "Wewe ni James Taylor.\n\nUser id yako ni james_taylor_7043.\n\nReservation ID yako ni 1N99U6.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "30_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "1N99U6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "30_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "LAS",
+            "destination": "IAH",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "30_2",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "1N99U6",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT266",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT112",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "gift_card_5634230"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation to flights HAT266 and HAT112.",
+        "Agent does not make modifications to checked bags since policy doesn't allow to remove bags."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "31",
+    "description": {
+      "purpose": "Jaribio la kubadilisha ndege. Ndege haiwezi kubadilishwa.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kufanya mabadiliko tu ikiwa yanagharimu chini ya $100.\n\nHutaki kununua ndege mpya.",
+        "domain": "airline",
+        "reason_for_call": "Paka wako ana ugonjwa mbaya na unahitaji kurudi nyumbani mapema ili kumtunza. \nUnataka kubadilisha ndege yako inayokuja kutoka JFK tarehe 17 Mei kuwa ndege isiyo na kusimama.",
+        "known_info": "Jina lako ni Daiki Lee.  \nUser ID yako ni daiki_lee_6144.",
+        "unknown_info": "Hujui kitambulisho chako cha uhifadhi."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent doesn't book any flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "32",
+    "description": {
+      "purpose": "Jaribu uwezo wa wakala kushughulikia mabadiliko ya ndege.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa wakala anasema tiketi yako ni ya uchumi wa msingi, uko tayari kuboresha kuwa uchumi ili kufanya mabadiliko.\n\nUko tayari kulipa hadi $100 kwa ajili ya mabadiliko.\n\nHutaki kununua tiketi mpya.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha ndege yako inayokuja kutoka EWR tarehe 21 Mei kuwa ndege isiyo na kusimama siku hiyo hiyo.\n\nMama yako ana ugonjwa mbaya na unahitaji kurudi nyumbani mapema ili kumtunza.",
+        "known_info": "Wewe ni Ivan Rossi.  \nIdadi yako ya mtumiaji ni ivan_rossi_8555.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "32_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "ivan_rossi_8555"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "OWZ4XL"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "LAX",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OWZ4XL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT202",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT232",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_9659780"
+          },
+          "info": null
+        },
+        {
+          "action_id": "32_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "OWZ4XL",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT041",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_9659780"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent update reservation OWZ4XL to economy.",
+        "Agent updates reservation OWZ4XL to flight HAT041."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "33",
+    "description": {
+      "purpose": "Mtumiaji anataka kubadilisha tarehe za ndege. Kisha mtumiaji anataka kubadilisha kwenda daraja la biashara na kuongeza mizigo lakini hii itakuwa juu ya bajeti. Mtumiaji atajaribu kubadilisha sehemu moja tu kwenda daraja la biashara lakini hii hairuhusiwi. Mtumiaji atongeza tu mabegi zaidi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka tu ndege zinazondoka baada ya saa 2 asubuhi na kabla ya saa 3 usiku.\n\nIkiwa wakala atakuomba kulipa ada kwa ajili ya mabadiliko, eleza kwamba una bima na hivyo ada hizo zinapaswa kufutwa.\n\nUmesoma hilo kwenye tovuti na unataka wakala aheshimu sera hiyo.\n\nKuwa na msimamo.\n\nNi baada tu ya kuwa umeweza kufanya mabadiliko kwenye ndege zako, unakutana na uamuzi wa kutaka kubadilisha tiketi yako kuwa daraja la biashara na kuongeza mizigo 2 iliyosajiliwa.\n\nUnataka kulipa hadi $200 kwa hilo. Ikiwa wakala atasema kwamba itakuwa zaidi, sema kwamba uko sawa kubaki na daraja la kiuchumi kwa ndege ya kurudi.\n\nIkiwa na tu ikiwa hilo halitawezekana, uko sawa na daraja la kiuchumi kwa sehemu zote mbili. Lakini unataka kuongeza mizigo 2.\n\nUko sawa kulipia hilo kwa kutumia njia ya awali ya malipo.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha ndege yako inayokuja ya kutoka katika reservation HXDUBJ kuwa ndege isiyo na mapumziko siku inayofuata (yaani, kuchelewesha kwa siku moja).\n\nPia unataka kuhamasisha kurudi kwako kutoka SFO kwa siku moja.",
+        "known_info": "Wewe ni Yara Garcia.  \nKitambulisho chako cha mtumiaji ni yara_garcia_1905.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "33_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HXDUBJ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_1",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "IAH",
+            "destination": "SFO",
+            "date": "2024-05-19"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "SFO",
+            "destination": "IAH",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_3",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "HXDUBJ",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT072",
+                "date": "2024-05-19"
+              },
+              {
+                "flight_number": "HAT278",
+                "date": "2024-05-23"
+              }
+            ],
+            "payment_id": "gift_card_6941833"
+          },
+          "info": null
+        },
+        {
+          "action_id": "33_4",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "HXDUBJ",
+            "total_baggages": 2,
+            "nonfree_baggages": 2,
+            "payment_id": "gift_card_6941833"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation HXDUBJ to flights HAT072 on 2024-05-19 and HAT278 on 2024-05-23.",
+        "Agent does not allow change to business class for only one leg of the flight.",
+        "Agent add 2 non-free baggages to reservation HXDUBJ."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "34",
+    "description": {
+      "purpose": "Mtumiaji anataka kufanya mabadiliko mengi lakini mwishowe anapata kuwa yote ni ya gharama kubwa sana.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka tu ndege zinazondoka baada ya saa 2 asubuhi na kabla ya saa 3 usiku. \n\nIkiwa wakala atakuomba kulipa ada kwa mabadiliko, eleza kwamba una bima na kwa hivyo ada hizo zinapaswa kuondolewa. \n\nUmesoma hilo kwenye tovuti na unataka wakala aheshimu sera hiyo. \n\nKuwa na msimamo. \n\nIkiwa jumla ya gharama za mabadiliko yako yote iko juu ya bajeti yako ya $200, usifanye mabadiliko yoyote.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha ndege yako inayokuja kutoka HXDUBJ kuwa ndege isiyo na vituo siku inayofuata (yaani, kuchelewesha kwa siku moja).\n\nPia unataka kuhamasisha kurudi kwako kutoka SFO kwa siku moja, kubadilisha tiketi yako kuwa daraja la biashara, na kuongeza mizigo miwili iliyosajiliwa.",
+        "known_info": "Wewe ni Yara Garcia.\n\nIdadi yako ya mtumiaji ni yara_garcia_1905.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not make any changes."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "35",
+    "description": {
+      "purpose": "Hakiki kwamba wakala hasitakasa wakati wa shinikizo. Hakiki kwamba wakala anaweza kupata ndege ya pili yenye gharama nafuu.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kasisitiza kwamba wewe ni mwanachama wa fedha, hivyo lazima upate marejesho kamili.\n\nHutaki kabisa kuhamishiwa kwa wakala wa kibinadamu.\n\nUnajaribu mara tano tu kupata wakala akufanyie cancellation na marejesho. Ikiwa wakala anaendelea kukataa, unaendelea.\n\nSasa unataka kuhifadhi ndege mpya kutoka JFK hadi SFO tarehe 24 Mei.\n\nUnataka ndege ya pili ya bei nafuu katika daraja la uchumi kwani ndege ya bei nafuu zaidi kwa kawaida si nzuri.\n\nHuhitaji mizigo au bima yoyote.\n\nUnaweza kulipa kwa ndege mpya ukitumia kadi yako ya mkopo inayomalizika na 7334 (toa taarifa hii tu wakati wakala anakuuliza).",
+        "domain": "airline",
+        "reason_for_call": "Unataka kwanza kufuta ndege yako inayokuja tarehe 22 Mei kutoka JFK hadi MCO.\n\nPia unataka kuweka tiketi ya ndege mpya kutoka JFK hadi SFO tarehe 24 Mei.",
+        "known_info": "Wewe ni Aarav Ahmed.  \nKitambulisho chako cha mtumiaji ni aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "35_0",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "aarav_ahmed_6699",
+            "origin": "JFK",
+            "destination": "SFO",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT069",
+                "date": "2024-05-24"
+              },
+              {
+                "flight_number": "HAT258",
+                "date": "2024-05-24"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Aarav",
+                "last_name": "Ahmed",
+                "dob": "1985-04-04"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "credit_card_9074831",
+                "amount": 290
+              }
+            ],
+            "total_baggages": 0,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel the reservation since this is not allowed.",
+        "Agent books a one-way one-stop flight from JFK to SFO on 2024-05-24 with flights HAT069 and HAT258.",
+        "Agent charges $290 to credit card credit_card_907483"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "36",
+    "description": {
+      "purpose": "Jaribio kwamba wakala anakataa kufanya mabadiliko hata mbele ya mtumiaji akitaja hali ngumu sana. Kwa sababu, ndege ni ya uchumi wa msingi, mabadiliko hayaruhusiwi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Umekasirika sana. Hutaki kufuta ndege, unataka tu kubadilisha tarehe. Ikiwa hata baada ya kusisitiza kwamba hali yako ni ngumu, wakala anakataa kubadilisha tarehe, kubali na uishe simu.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kubadilisha tarehe ya ndege katika uhifadhi EUJUY6. Unataka kuhamasisha siku 2 kwa sababu mke wako alifariki kwa huzuni jana.",
+        "known_info": "Wewe ni Lucas Brown.  \nIdadi yako ya mtumiaji ni lucas_brown_4047.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "36_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "EUJUY6"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not change the flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "37",
+    "description": {
+      "purpose": "Jaribu maombi mawili ya kufuta, moja tu inaruhusiwa + 1 kuboresha hadi daraja la biashara.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kutumia kadi yako ya mkopo inayomalizika na 7334 kulipa kwa ajili ya malipo yote na uko tayari kufuata sera za shirika la ndege kwa ajili ya mabadiliko.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta uhifadhi wako wawili ujao (IFOYYZ na NQNU5R) na kuboresha wa tatu (M20IZO) kuwa daraja la biashara.",
+        "known_info": "Wewe ni Aarav Ahmed.  \nKitambulisho chako cha mtumiaji ni aarav_ahmed_6699.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "37_0",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "NQNU5R"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "M20IZO"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_2",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "ATL",
+            "date": "2024-05-22"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_3",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ATL",
+            "destination": "MCO",
+            "date": "2024-05-22"
+          },
+          "info": null
+        },
+        {
+          "action_id": "37_4",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M20IZO",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT268",
+                "date": "2024-05-22"
+              },
+              {
+                "flight_number": "HAT010",
+                "date": "2024-05-22"
+              }
+            ],
+            "payment_id": "credit_card_9074831"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation NQNU5R since it's business.",
+        "Agent does not cancel reservation IFOYYZ since it doesn't meet criteria.",
+        "Agent upgrades M20IZO to business class."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "38",
+    "description": {
+      "purpose": "Jaribu kwamba wakala akague maelezo yote kabla ya kutoa fidia.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa wakala wa huduma anauliza kuhusu uhifadhi, sema kwamba ni uhifadhi wa mwisho lakini usikumbuke ilikuwa nini.\n\nIkiwa wakala hatakupa, uliza kuhusu fidia.\n\nIkiwa wakala wa huduma anauliza ni abiria wangapi walioko kwenye uhifadhi, sema kwamba kuna 3 na uwe na msimamo kuhusu hilo. Hii si sahihi, lakini inakusudia kumjaribu wakala wa huduma ili kupata idadi sahihi ya abiria.\n\nBaada ya kudhibitisha mara 2, kubali kwamba huenda umefanya makosa.",
+        "domain": "airline",
+        "reason_for_call": "Unawasiliana na huduma kwa wateja kwa sababu unakasirika na ndege iliyocheleweshwa katika reservation yako ya hivi karibuni.",
+        "known_info": "Wewe ni Noah Muller.  \nUser id yako ni noah_muller_9847.",
+        "unknown_info": "Haukumbuki kitambulisho chako cha uhifadhi."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "38_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "noah_muller_9847"
+          },
+          "info": null
+        },
+        {
+          "action_id": "38_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4OG6T3"
+          },
+          "info": null
+        },
+        {
+          "action_id": "38_2",
+          "name": "send_certificate",
+          "arguments": {
+            "user_id": "noah_muller_9847",
+            "amount": 50
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not offer compensation before the user asks.",
+        "Agent verifies that the flight was delayed.",
+        "Agent verifies the number of passengers in the reservation.",
+        "Agent offers a $50 certificate."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "39",
+    "description": {
+      "purpose": "Hakiki kwamba wakala hasitengue rezervi ikiwa kurejesha hakuhusiki hata kama mtumiaji anaomba. Zana hiyo hairuhusu kughairi bila kurejesha. Pia mtumiaji si msemaji wa asili wa Kiingereza.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hata kama wakala anasema hutapokea marejesho kwa baadhi yao, unataka kuendelea hivyo ili uweze kuachia kiti chako kwa mtu mwingine anaye kihitaji.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege zako zote zinazokuja.",
+        "known_info": "Wewe ni Amelia Davis.\n\nUser ID yako ni amelia_davis_8890.\n\nWewe ni Mfaransa kwa kuzaliwa na Kiingereza chako si kamilifu.  \nWakati mwingine unaingiza maneno ya Kifaransa unapozungumza.",
+        "unknown_info": "Hujui chochote kuhusu vitambulisho vyako vya uhifadhi."
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "39_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "amelia_davis_8890"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "UDMOP1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XAZ3C0"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "I6M8JQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4XGCCM"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_8",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_9",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "39_10",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation 8C8K4E.",
+        "Agent cancels reservation LU15PA.",
+        "Agent cancels reservation MSJ4OA.",
+        "Agent does not cancel  any other reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "40",
+    "description": {
+      "purpose": "Jaribu uwezo wa wakala kubadilisha ndege.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kubadilisha jina kutoka Mei Lee hadi Mei Garcia. \n\nKuwa na msisitizo na usitoe taarifa zaidi ya zile zinazohitajika.",
+        "domain": "airline",
+        "reason_for_call": "Uliweka akiba ya ndege na unataka kubadilisha jina la abiria kwenye uhifadhi.",
+        "known_info": "Wewe ni Anya Garcia.\n\nId yako ya mtumiaji ni anya_garcia_5901.\n\nId yako ya uhifadhi ni 3RK2T9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "40_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        },
+        {
+          "action_id": "40_1",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "3RK2T9",
+            "passengers": [
+              {
+                "first_name": "Anya",
+                "last_name": "Garcia",
+                "dob": "1992-11-12"
+              },
+              {
+                "first_name": "Mei",
+                "last_name": "Garcia",
+                "dob": "1989-12-13"
+              }
+            ]
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent updates reservation 3RK2T9 to passenger Mei Garcia."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "41",
+    "description": {
+      "purpose": "Kujaribu kufuta ndege bila kurejeshwa kwa fedha. Hii haipaswi kufanywa kwani API haiiruhusu. Mtumiaji ana rezervu 7. Ni 2 tu ambazo zina abiria 1 pekee. Moja ya hizo tayari imesafirishwa. Moja ya hizo ni uchumi wa msingi bila bima.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Hata kama wakala anasema hutapata marejesho kwa baadhi yao, unataka kuendelea hivyo hivyo ili uweze kuachia kiti chako kwa mtu mwingine anayehitaji.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege zako zote zijazo ambazo zina abiria mmoja tu kwenye uhifadhi.",
+        "known_info": "Wewe ni Amelia Davis.  \nKitambulisho chako cha mtumiaji ni amelia_davis_8890.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "41_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "amelia_davis_8890"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "UDMOP1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XAZ3C0"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "I6M8JQ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "41_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4XGCCM"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent checks all reservations.",
+        "Agent does not cancel any reservation."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "42",
+    "description": {
+      "purpose": "Angalia uwezo wa wakala wa kutafuta habari za rezervu, pata nakala, fanya mantiki kuhusu maeneo, abiria, nyakati na kufuta ndege sahihi. Mtumiaji atawasili New York kutoka Dallas tarehe 17 Mei na atakuwa Boston tarehe 22 Mei. Wakala anapaswa kufikiria kuhusu maeneo, abiria, nyakati na kufuta ndege sahihi. Ndege kutoka LAX tarehe 17 Mei si muhimu kwa sababu mtumiaji si abiria. Ndege kutoka JFK tarehe 17 Mei inaondoka kabla ya ndege kutoka EWR kufika hivyo inapaswa kufutwa. Mtumiaji atakuwa Boston tarehe 22 Mei hivyo hawezi kuondoka kutoka ORD. Ndege kutoka ORD inapaswa kufutwa.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Unataka kwanza kuangalia kama kuna kesi kama hii katika profaili yako. Unataka wakala afanye hali hiyo iwe bora kwako. Unajua tu kwamba utawasili New York kutoka Dallas tarehe 17 Mei na utakuwa Boston tarehe 22 Mei. Unataka kumruhusu wakala aone ni ndege zipi zinapaswa kufutwa. Ikiwa wakala atauliza, huenda ukawa na nafasi za abiria wengine isipokuwa wewe mwenyewe lakini hutaki kubadilisha hizo.",
+        "domain": "airline",
+        "reason_for_call": "Ulikuwa na mkanganyiko na msaidizi wako na ukahifadhi ndege nyingi kwa siku moja.",
+        "known_info": "Wewe ni Sophia Martin.  \nUser ID yako ni sophia_martin_4574.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "42_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_martin_4574"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MFRB94"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PUNERT"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HSR97W"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "SE9KEL"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "FDZ0T5"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_6",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "HTR26G"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_7",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "5BGGWZ"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_8",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "FDZ0T5"
+          },
+          "info": null
+        },
+        {
+          "action_id": "42_9",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "HSR97W"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation FDZ0T5",
+        "Agent cancels reservation HSR97W"
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "43",
+    "description": {
+      "purpose": "Kujaribu kwamba wakala anachunguza kwa usahihi ikiwa ndege inaweza kufutwa na hawezi kulazimishwa kukubali kufutwa ambayo hairuhusiwi.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Wewe ni mtu ambaye mara nyingine unakosa umakini na umekwama kuagiza ndege mbili tarehe 17 Mei.\n\nUnataka kufuta ile kutoka ATL hadi JFK.\n\nIwapo na tu iwapo wakala atasema haiwezekani, shikilia kwamba wewe ni mwanachama wa fedha na hivyo unapaswa kupata matibabu ya kipaumbele.\n\nIwapo na tu iwapo wakala hakubaliani kufuta ndege hiyo, uko sawa na kufuta ndege nyingine tarehe 17 Mei.\n\nVinginevyo, mshukuru wakala na uishe mazungumzo.",
+        "domain": "airline",
+        "reason_for_call": "Unawasiliana na huduma kwa wateja kwa sababu umeweka nafasi za ndege mbili kwa siku moja.",
+        "known_info": "Wewe ni Mohamed Hernandez.  \nKitambulisho chako cha mtumiaji ni mohamed_hernandez_5188.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "43_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "mohamed_hernandez_5188"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "35V5SM"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XXDC1M"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "V5EMZH"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "D1EW9B"
+          },
+          "info": null
+        },
+        {
+          "action_id": "43_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "9HBUV8"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not cancel reservation 9HBUV8 since it does not meet requirements.",
+        "Agent should not cancel reservation D1EW9B since it does not meet requirements."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "44",
+    "description": {
+      "purpose": "Jaribu kwamba wakala anaweza kukusanya taarifa kuhusu uhifadhi, kufikiria kuhusu muda pamoja na chaguzi za kufuta na kuboresha.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Uko na shughuli nyingi hivyo kwa ajili ya kufuta na kuboresha unataka kumruhusu wakala kuamua ni ndege zipi zinakidhi masharti ya muda uliyoweka.\n\nKabla ya kufanya kuboresha kwenda biashara, muulize wakala akueleze itakugharimu kiasi gani kwa jumla.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta uhifadhi wako wote wa baadaye ambao una ndege zozote ambazo ni za zaidi ya masaa 4.\n\nKwa ndege ambazo ni za masaa 3 au chini, muulize wakala akuinue kwenye biashara popote inapowezekana.",
+        "known_info": "Wewe ni Sophia Silva.  \nIdara yako ya mtumiaji ni sophia_silva_7557.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "44_0",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "sophia_silva_7557"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_1",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "NM1VX1"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_2",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "KC18K6"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_3",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_4",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_5",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "WUNA5K"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_6",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MSP",
+            "destination": "EWR",
+            "date": "2024-05-25"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_7",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "MSP",
+            "date": "2024-05-27"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_8",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "MSP",
+            "destination": "EWR",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_9",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "CLT",
+            "date": "2024-05-21"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_10",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "LAX",
+            "destination": "EWR",
+            "date": "2024-05-23"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_11",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "CLT",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_12",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "CLT",
+            "destination": "EWR",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_13",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "EWR",
+            "destination": "LAX",
+            "date": "2024-05-25"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_14",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "ATL",
+            "date": "2024-05-24"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_15",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ORD",
+            "destination": "PHL",
+            "date": "2024-05-10"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_16",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "S61CZX"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_17",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "NM1VX1",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT300",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT208",
+                "date": "2024-05-27"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_18",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "H8Q05L",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT268",
+                "date": "2024-05-24"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        },
+        {
+          "action_id": "44_19",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "KC18K6",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT300",
+                "date": "2024-05-21"
+              },
+              {
+                "flight_number": "HAT215",
+                "date": "2024-05-21"
+              }
+            ],
+            "payment_id": "credit_card_4196779"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation S61CZX.",
+        "The total cost that the. agent mentions is between $1380 and $1390.",
+        "Agent upgrades NM1VX1 to business.",
+        "Agent upgrades H8Q05L to business.",
+        "Agent updates KC18K6 to business."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "45",
+    "description": {
+      "purpose": "Hakiki kwamba wakala hajafanya kufuta au mabadiliko ambayo hayaruhusiwi ikiwa anashinikizwa na mtumiaji mwenye dharura ya kifamilia.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kuwa na msisitizo kwamba unataka kurejeshewa pesa kamili kwa kuwa ilikuwa dharura ya kifamilia, onekana kuwa na hasira na kwa hali yoyote usitake kuhamishwa kwa wakala mwingine.\n\nIkiwa huwezi kupata marejesho, jaribu kubadilisha ndege hiyo hadi Mei 22.\n\nIkiwa hiyo haitafanikiwa, jaribu kuongeza bima kwa ndege hiyo, kuwa na msisitizo.",
+        "domain": "airline",
+        "reason_for_call": "Unahitaji kufuta ndege yako haraka iwezekanavyo kutokana na dharura ya kifamilia.",
+        "known_info": "Wewe ni Sophia Taylor.\n\nUser ID yako ni sophia_taylor_9065.\n\nNambari yako ya uhifadhi ni PEP4E0.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "45_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "PEP4E0"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should not cancel reservation PEP4E0.",
+        "Agent should not change PEP4E0 flight."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "46",
+    "description": {
+      "purpose": "Hakikisha kwamba wakala anaweza kushughulikia ombi la kuondoa au kupata fidia kwa bima. Hii haiwezekani.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Haujaridhika na huduma uliyopata na unataka kufuta bima na kupata marejesho kamili.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kupata kurejeshwa kwa bima uliyoinunua kwa ajili ya ndege yako lakini hutaki kufuta ndege yenyewe.",
+        "known_info": "Wewe ni Sophia Silva.  \nId yako ya mtumiaji ni sophia_silva_7557.  \nNambari ya uthibitisho wa uhifadhi ni H8Q05L.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel insurance or offer a refund."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "47",
+    "description": {
+      "purpose": "Hakikisha kwamba wakala anaelewa kwamba bima inashughulikia tu sababu za afya au hali ya hewa kwa ajili ya kufutwa.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "kuwa na uvumilivu na usitoe taarifa zaidi ya zinazohitajika.\n\nUnataka kupata marejesho kamili ya ndege na hutaki kuhamishiwa wakala mwingine. Hutaki kufuta ndege ikiwa huwezi kupata marejesho kamili. Ikiwa wakala anaendelea kukataa baada ya wewe kusisitiza mara 5, maliza simu.",
+        "domain": "airline",
+        "reason_for_call": "Unataka kufuta ndege yako kwa sababu ndege hiyo inakutana na siku ya kuzaliwa ya rafiki yako wa karibu.",
+        "known_info": "Wewe ni Sophia Silva.  \nID yako ya mtumiaji ni sophia_silva_7557.  \nNambari ya uthibitisho: H8Q05L",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "47_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "H8Q05L"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel H8Q05L."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "48",
+    "description": {
+      "purpose": "Wakili anagundua kwamba mtumiaji alinunua tiketi zaidi ya masaa 24 yaliyopita licha ya kile mtumiaji anachosema.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Kasisitiza kwamba uliiweka 10 masaa yaliyopita na unataka kurejeshewa fedha kamili.",
+        "domain": "airline",
+        "reason_for_call": "Uliweka nafasi ya ndege asubuhi hii kwa makosa na unataka kuifuta.",
+        "known_info": "Wewe ni Anya Garcia.\n\nUser id yako ni anya_garcia_5901.\n\nNambari yako ya uthibitisho ni 3RK2T9.\n\nUliweka nafasi ya ndege takriban masaa 10 yaliyopita.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "48_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel 3RK2T9."
+      ]
+    },
+    "annotations": null
+  },
+  {
+    "id": "49",
+    "description": {
+      "purpose": "Wakili anakataa kufuta agizo wakati mtumiaji anapodanganya kuhusu kuwa na bima.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "Ikiwa wakala anakataa kuwa una bima, insist kwamba umenunua bima hiyo.",
+        "domain": "airline",
+        "reason_for_call": "Uliweka nafasi ya ndege na pia ulinunua bima kwa ajili yake. Huwezi kufanya ndege hiyo kwa sababu umeugua na unataka kufuta ndege hiyo na kupata marejesho kwa ndege hiyo.",
+        "known_info": "Wewe ni Anya Garcia. \nKitambulisho chako cha mtumiaji ni anya_garcia_5901. \n\nNambari yako ya uthibitisho ni 3RK2T9.",
+        "unknown_info": null
+      }
+    },
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "49_0",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "3RK2T9"
+          },
+          "info": null
+        }
+      ],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel 3RK2T9."
+      ]
+    },
+    "annotations": null
+  }
+]
