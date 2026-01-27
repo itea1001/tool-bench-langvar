@@ -5,6 +5,9 @@ Translation script for ComplexFuncBench language variation experiments.
 Translates user queries while preserving function calls and technical elements.
 Function arguments are NOT translated to maintain consistency with expected
 API responses.
+
+Optionally translates tool documentation (function descriptions and parameter
+descriptions) to test model performance with non-English tool docs.
 """
 
 import json
@@ -54,6 +57,33 @@ Text to translate:
                 return text
 
 
+def translate_function_def(func_def: Dict, target_lang: str, client: openai.OpenAI) -> Dict:
+    """Translate function description and parameter descriptions.
+    
+    Keeps function name and parameter names in English, only translates
+    the description text fields.
+    """
+    import copy
+    translated = copy.deepcopy(func_def)
+    
+    # Translate function-level description
+    if "description" in translated:
+        translated["description"] = translate_text(translated["description"], target_lang, client)
+    
+    # Translate parameter descriptions
+    if "parameters" in translated and "properties" in translated["parameters"]:
+        for param_name, param_def in translated["parameters"]["properties"].items():
+            if "description" in param_def:
+                param_def["description"] = translate_text(param_def["description"], target_lang, client)
+    
+    return translated
+
+
+def translate_functions(functions: List[Dict], target_lang: str, client: openai.OpenAI) -> List[Dict]:
+    """Translate all function definitions in a list."""
+    return [translate_function_def(f, target_lang, client) for f in functions]
+
+
 def translate_conversation(conversation: List[Dict], target_lang: str, client: openai.OpenAI) -> List[Dict]:
     """Translate a conversation, only translating user messages.
     
@@ -90,8 +120,16 @@ def translate_conversation(conversation: List[Dict], target_lang: str, client: o
     return translated_conv
 
 
-def translate_example(example: Dict, target_lang: str, client: openai.OpenAI) -> Dict:
-    """Translate a single ComplexFuncBench example."""
+def translate_example(example: Dict, target_lang: str, client: openai.OpenAI, 
+                      translate_tool_docs: bool = False) -> Dict:
+    """Translate a single ComplexFuncBench example.
+    
+    Args:
+        example: The example to translate
+        target_lang: Target language code
+        client: OpenAI client
+        translate_tool_docs: If True, also translate function/parameter descriptions
+    """
     translated = {
         "id": example["id"],
         "conversations": translate_conversation(
@@ -99,9 +137,18 @@ def translate_example(example: Dict, target_lang: str, client: openai.OpenAI) ->
         )
     }
     
+    # Optionally translate function definitions
+    if "functions" in example:
+        if translate_tool_docs:
+            translated["functions"] = translate_functions(
+                example["functions"], target_lang, client
+            )
+        else:
+            translated["functions"] = example["functions"]
+    
     # Copy any other fields
     for key in example:
-        if key not in ["id", "conversations"]:
+        if key not in ["id", "conversations", "functions"]:
             translated[key] = example[key]
     
     return translated
@@ -119,6 +166,8 @@ def main():
                         help="Limit number of examples to translate (for testing)")
     parser.add_argument("--resume", action="store_true",
                         help="Resume from last checkpoint")
+    parser.add_argument("--translate-tool-docs", action="store_true",
+                        help="Also translate function descriptions and parameter descriptions")
     args = parser.parse_args()
     
     # Initialize OpenAI client
@@ -128,7 +177,10 @@ def main():
     input_path = Path(args.input)
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"ComplexFuncBench_{args.lang}.jsonl"
+    
+    # Output filename includes suffix if tool docs are translated
+    suffix = "_tooldocs" if args.translate_tool_docs else ""
+    output_path = output_dir / f"ComplexFuncBench_{args.lang}{suffix}.jsonl"
     
     # Load input data
     print(f"Loading data from {input_path}...")
@@ -150,13 +202,14 @@ def main():
     # Filter out already translated
     examples = [ex for ex in examples if ex["id"] not in translated_ids]
     
-    print(f"Translating {len(examples)} examples to {LANGUAGES[args.lang]}...")
+    tool_docs_msg = " (including tool docs)" if args.translate_tool_docs else ""
+    print(f"Translating {len(examples)} examples to {LANGUAGES[args.lang]}{tool_docs_msg}...")
     
     # Translate
     mode = 'a' if args.resume else 'w'
     with open(output_path, mode, encoding='utf-8') as f:
         for example in tqdm(examples, desc=f"Translating to {args.lang}"):
-            translated = translate_example(example, args.lang, client)
+            translated = translate_example(example, args.lang, client, args.translate_tool_docs)
             f.write(json.dumps(translated, ensure_ascii=False) + "\n")
             f.flush()
     
