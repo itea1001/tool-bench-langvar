@@ -2,8 +2,9 @@
 """
 Translation script for ComplexFuncBench language variation experiments.
 
-Translates user queries and assistant responses while preserving function calls
-and technical elements.
+Translates user queries while preserving function calls and technical elements.
+Function arguments are NOT translated to maintain consistency with expected
+API responses.
 """
 
 import json
@@ -53,38 +54,12 @@ Text to translate:
                 return text
 
 
-def translate_function_arguments(arguments: Dict[str, Any], target_lang: str, client: openai.OpenAI) -> Dict[str, Any]:
-    """
-    Translate function call arguments.
-    
-    Note: We translate string values to maintain consistency with the translated
-    user queries. This ensures the model sees arguments in the same language
-    as the conversation context.
-    """
-    translated_args = {}
-    
-    for key, value in arguments.items():
-        if isinstance(value, str):
-            # Translate string argument values to match translated user queries
-            translated_args[key] = translate_text(value, target_lang, client)
-        elif isinstance(value, dict):
-            # Recursively translate nested dicts
-            translated_args[key] = translate_function_arguments(value, target_lang, client)
-        elif isinstance(value, list):
-            # Handle list values
-            translated_args[key] = [
-                translate_text(item, target_lang, client) if isinstance(item, str) else item
-                for item in value
-            ]
-        else:
-            # Keep numbers, booleans, etc as-is
-            translated_args[key] = value
-    
-    return translated_args
-
-
 def translate_conversation(conversation: List[Dict], target_lang: str, client: openai.OpenAI) -> List[Dict]:
-    """Translate a conversation, including user messages and function call arguments."""
+    """Translate a conversation, only translating user messages.
+    
+    Function calls and their arguments are kept in English to match
+    expected API responses and ground truth values.
+    """
     translated_conv = []
     
     for turn in conversation:
@@ -98,22 +73,13 @@ def translate_conversation(conversation: List[Dict], target_lang: str, client: o
                 translated_turn["content"] = turn["content"]
                 
         elif turn["role"] == "assistant":
-            # Keep assistant content as-is (it's usually the final response)
+            # Keep assistant content as-is
             if "content" in turn:
                 translated_turn["content"] = turn["content"]
             
-            # Translate function calls if present
+            # Keep function calls as-is (don't translate arguments)
             if "function_call" in turn:
-                translated_calls = []
-                for call in turn["function_call"]:
-                    translated_call = {
-                        "name": call["name"],  # Keep function name in English
-                        "arguments": translate_function_arguments(
-                            call["arguments"], target_lang, client
-                        )
-                    }
-                    translated_calls.append(translated_call)
-                translated_turn["function_call"] = translated_calls
+                translated_turn["function_call"] = turn["function_call"]
                 
         elif turn["role"] == "observation":
             # Keep observations as-is (API responses)
