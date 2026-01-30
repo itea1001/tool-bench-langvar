@@ -143,10 +143,14 @@ def main():
                         help="Use translated tool docs version")
     parser.add_argument("--output_suffix", type=str, default="",
                         help="Suffix to add to output file name")
+    parser.add_argument("--input_file", type=str, default=None,
+                        help="Custom input file path (overrides other input options)")
     args = parser.parse_args()
     
     # Set input file
-    if args.lang == "en":
+    if args.input_file:
+        input_file = args.input_file
+    elif args.lang == "en":
         input_file = os.path.join(args.input_dir, "ComplexFuncBench.jsonl")
     else:
         suffix = "_tooldocs" if args.tooldocs else ""
