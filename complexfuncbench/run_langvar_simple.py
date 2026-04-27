@@ -139,13 +139,22 @@ def main():
     parser.add_argument("--input_dir", type=str, default="data")
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--tooldocs", action="store_true", 
+                        help="Use translated tool docs version")
+    parser.add_argument("--output_suffix", type=str, default="",
+                        help="Suffix to add to output file name")
+    parser.add_argument("--input_file", type=str, default=None,
+                        help="Custom input file path (overrides other input options)")
     args = parser.parse_args()
     
     # Set input file
-    if args.lang == "en":
+    if args.input_file:
+        input_file = args.input_file
+    elif args.lang == "en":
         input_file = os.path.join(args.input_dir, "ComplexFuncBench.jsonl")
     else:
-        input_file = os.path.join(args.input_dir, "translated", f"ComplexFuncBench_{args.lang}.jsonl")
+        suffix = "_tooldocs" if args.tooldocs else ""
+        input_file = os.path.join(args.input_dir, "translated", f"ComplexFuncBench_{args.lang}{suffix}.jsonl")
     
     if not os.path.exists(input_file):
         print(f"Error: {input_file} not found")
@@ -186,7 +195,9 @@ def main():
     # Save results
     output_dir = Path(f"result/{args.model_name}")
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_file = output_dir / f"langvar-{args.lang}-simple.jsonl"
+    suffix = "-tooldocs" if args.tooldocs else ""
+    suffix += f"-{args.output_suffix}" if args.output_suffix else ""
+    output_file = output_dir / f"langvar-{args.lang}{suffix}-simple.jsonl"
     
     with open(output_file, 'w', encoding='utf-8') as f:
         for r in results:
@@ -199,4 +210,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

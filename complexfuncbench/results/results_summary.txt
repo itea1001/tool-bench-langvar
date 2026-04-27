@@ -1,0 +1,16 @@
+ComplexFuncBench Language Variation Results (n=20)
+
+| Lang | gpt-4.1-mini | gpt-4.1 |
+|------|--------------|---------|
+| en   | 86.4%        | 86.4%   |
+| es   | 63.6%        | 68.2%   |
+| fr   | 72.7%        | 77.3%   |
+| zh   | 86.4%        | 81.8%   |
+| vi   | 68.2%        | 86.4%   |
+| sw   | 81.8%        | 81.8%   |
+
+Key findings:
+- Chinese (zh) performs on par with English for gpt-4.1-mini
+- Vietnamese shows big improvement with gpt-4.1 (68.2% -> 86.4%)
+- Spanish has the largest drop across both models
+
